@@ -1,0 +1,20 @@
+FROM jeffersonlab/jlabce:1.3m
+LABEL maintainer "Zhiwen Zhao <zwzhao@jlab.org>"
+
+RUN rm /etc/profile.d/jlab.csh
+
+SHELL ["/bin/tcsh", "-c"]
+
+RUN 	mkdir /solid \
+    &&	cd /solid \
+    &&	git clone https://github.com/JeffersonLab/solid_gemc.git \
+    &&	rm -rf  solid_gemc/.git \
+    &&	source /solid/solid_gemc/set_solid \
+    &&	cd $SoLID_GEMC/source/$GEMC_VERSION \
+    &&	scons OPT=1 -j8
+
+WORKDIR /solid
+
+
+
+
