@@ -1,7 +1,7 @@
 # solid_release
-release of all SoLID software packages
+Release of all SoLID software packages by docker container at [jeffersonlab/solid](https://hub.docker.com/r/jeffersonlab/solid/tags/)
 
-They are put into docker containers at [jeffersonlab/solid](https://hub.docker.com/r/jeffersonlab/solid/tags/) which is based on [jeffersonlab/jlabce](https://hub.docker.com/r/jeffersonlab/jlabce/tags/)
+They are based on [jeffersonlab/jlabce](https://hub.docker.com/r/jeffersonlab/jlabce/tags/)
 
 Instructions:  
 --------------------
@@ -21,6 +21,9 @@ To build and push the container:
 * docker tag solid:1.0.0 jeffersonlab/solid:1.0.0
 * sudo docker push jeffersonlab/solid:1.0.0  (your docker account would need the right privilege)
 
+See more details in [howto](https://github.com/JeffersonLab/solid_release/blob/master/howto)
+
+Reference
 --------------------
 
 For more detailed general instruction about singularity and docker, include jlab ifarm singularity installation and how to use them on windows and mac, refer to
