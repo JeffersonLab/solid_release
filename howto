@@ -3,29 +3,26 @@ run jeffersonlab/solid:1.0.0 on ifarm
 ssh -XY ifarm
 module load singularity-2.6.0
 cd your_work_dir
-(load container)
+(load container for batch mode)
 singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s2.6.0.simg
+(load container for graphic mode)
+singularity run /group/solid/apps/jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s2.6.0.simg &
+vncviewer localhost:1
 (now you are in container, run following commands inside)
 set prompt = '[#Container# %n@%m %c]$ '
+(do this if you want to use the pre-installed solid_gemc)
 source /solid/solid_gemc/set_solid
-cd $SoLID_GEMC/script
-solid_gemc solid_PVDIS_LD2_full.gcard
-solid_gemc solid_SIDIS_He3_full.gcard
---------------------
-
-run github version of solid_gemc with jeffersonlab/solid:1.0.0 on ifarm
---------------------
-ssh -XY ifarm
-module load singularity-2.6.0
-cd your_work_dir
-(load container)
-singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s2.6.0.simg
-(now you are in container, run following commands inside)
-set prompt = '[#Container# %n@%m %c]$ '
+(do this if you want to test github version of solid_gemc with your clone)
 git clone https://github.com/JeffersonLab/solid_gemc
 source solid_gemc/set_solid 1.3 /jlab ${PWD}/solid_gemc
 cd $SoLID_GEMC/source/$GEMC_VERSION/
 scons OPT=1
+(run solid_gemc)
 cd $SoLID_GEMC/script
 solid_gemc solid_PVDIS_LD2_full.gcard
 solid_gemc solid_SIDIS_He3_full.gcard
+(exit container for batch mode)
+control-d
+(exit container for graphic mode)
+fg
+control-c
