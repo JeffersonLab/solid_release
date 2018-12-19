@@ -27,7 +27,9 @@ To use with docker
 To build and push the container:
 * docker build -f Dockerfile-1.0.0 -t solid:1.0.0 .
 * docker tag solid:1.0.0 jeffersonlab/solid:1.0.0
-* sudo docker push jeffersonlab/solid:1.0.0  (your docker account would need the right privilege)
+* docker login                          (login with your docker account)
+* docker push jeffersonlab/solid:1.0.0  (your docker account need the right privilege to make this work)
+* docker rmi solid:1.0.0   (remove the tmp tag)
 
 See more details in [howto](https://github.com/JeffersonLab/solid_release/blob/master/howto)
 
