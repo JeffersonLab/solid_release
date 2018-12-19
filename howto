@@ -67,7 +67,7 @@ source /group/solid/solid_github/JeffersonLab/solid_gemc/set_solid 1.3 /jlab /gr
 git clone https://github.com/JeffersonLab/solid_gemc   (or just git pull to update it)
 source ${PWD}/solid_gemc/set_solid 1.3 /jlab ${PWD}/solid_gemc
 cd $SoLID_GEMC/source/$GEMC_VERSION/
-scons OPT=1
+scons OPT=1 -j8
 (run solid_gemc)
 cd $SoLID_GEMC/script
 solid_gemc solid_PVDIS_LD2_full.gcard
