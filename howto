@@ -107,7 +107,7 @@ scons OPT=1 -j8
 setenv GEMC ${preGEMC}
 (get ready to run solid_gemc)
 setenv LD_LIBRARY_PATH ${myGEMC}:${LD_LIBRARY_PATH}
-setenv PATH ${SoLID_GEMC}/source/devel:${PATH}
+setenv PATH /solid/banks/bin:${SoLID_GEMC}/source/devel:${PATH}
 (run solid_gemc)
 cd $SoLID_GEMC/script
 solid_gemc solid_PVDIS_LD2_full.gcard
