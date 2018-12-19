@@ -1,4 +1,10 @@
 --Instruction ------------------
+singularity containers are standard way of running solid software. 
+They are created by pull from docker containers on ifarm with the following command
+module load singularity-2.6.0
+cd /group/solid/apps/
+setenv SINGULARITY_CACHEDIR ./
+singularity pull docker://jeffersonlab/solid:[tag]
 
 singularity containers are under /group/apps/ and the list are as of (2018/12/19):
 jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s2.6.0.simg
