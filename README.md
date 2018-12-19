@@ -23,6 +23,11 @@ To build and push the container:
 
 See more details in [howto](https://github.com/JeffersonLab/solid_release/blob/master/howto)
 
+Structure
+--------------------
+* jlabce is at /jlab
+* solid softwares are at /solid
+
 Reference
 --------------------
 
