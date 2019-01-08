@@ -4,28 +4,27 @@ Instructions
 
 singularity container is the standard way of running solid software. 
 They are created by pull from docker containers on ifarm with the following command
-module load singularity-2.6.0
-cd /group/solid/apps/
-setenv SINGULARITY_CACHEDIR ./
-singularity pull docker://jeffersonlab/solid:[tag]
+* cmodule load singularity-2.6.0
+* cd /group/solid/apps/
+* setenv SINGULARITY_CACHEDIR ./
+* singularity pull docker://jeffersonlab/solid:[tag]
 
 singularity containers are under /group/apps/ and the list are as of (2018/12/19):
-jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s2.6.0.simg
-jeffersonlab_solid_tag1.devel_s2.6.0.simg
-jeffersonlab_solid_tag2.devel_s2.6.0.simg
+* jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s2.6.0.simg
+* jeffersonlab_solid_tag1.devel_s2.6.0.simg
+* jeffersonlab_solid_tag2.devel_s2.6.0.simg
 
-On ifarm (or any jlab internal machine with nfs access to /group/apps/), you can load them directly
+On ifarm (or any jlab internal machine with nfs access to /group/apps/), you can load them directly.
 otherwise dowload them by "scp your_jlab_username@ftp.jlab.org:/group/solid/apps/[singularity_container_filename] ./"
 
 singularity container naming convention:
-for production container which won't changce once released
-"orgnization_repository_tag_digest_uploadtime_singularityversion.singularityformat"
-for devel container which would update from time to time
+* for production container which won't changce once released: "orgnization_repository_tag_digest_uploadtime_singularityversion.singularityformat"
+* for devel container which would update from time to time: 
 "orgnization_repository_tag_singularityversion.singularityformat"
 
 The official github clone on ifarm for testing:
-/group/solid/solid_github/JeffersonLab/solid_gemc
-/group/solid/solid_github/gemc/source
+* /group/solid/solid_github/JeffersonLab/solid_gemc
+* /group/solid/solid_github/gemc/source
 
 # load container 
 ***************************************************************
