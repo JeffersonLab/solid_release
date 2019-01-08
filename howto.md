@@ -1,5 +1,8 @@
---Instruction ------------------
-singularity containers are standard way of running solid software. 
+
+Instructions  
+--------------------
+
+singularity container is the standard way of running solid software. 
 They are created by pull from docker containers on ifarm with the following command
 module load singularity-2.6.0
 cd /group/solid/apps/
@@ -24,7 +27,8 @@ The official github clone on ifarm for testing:
 /group/solid/solid_github/JeffersonLab/solid_gemc
 /group/solid/solid_github/gemc/source
 
-*** load container *************************************************************
+# load container 
+***************************************************************
 ssh -XY ifarm
 (singularity will load your shell env,so clean them up to avoid conflict. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc"  temporally.)
 module load singularity-2.6.0
