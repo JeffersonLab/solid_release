@@ -31,12 +31,12 @@ To build and push the container:
 * docker push jeffersonlab/solid:1.0.0  (your docker account need the right privilege to make this work)
 * docker rmi solid:1.0.0   (remove the tmp tag)
 
-See more details in [howto](https://github.com/JeffersonLab/solid_release/blob/master/howto)
+See more details in [howto](https://github.com/JeffersonLab/solid_release/blob/master/howto.md)
 
 Structure
 --------------------
 * jlabce is at /jlab
-* solid softwares are at /solid
+* SoLID softwares are at /solid
 
 Reference
 --------------------
