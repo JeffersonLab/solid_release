@@ -25,6 +25,7 @@ To use with docker
 * vncviewer localhost:1 or firefox localhost:6080
 
 To build and push the container:
+* Create an empty directory and enter into the new directory and copy the needed Dockerfile into it
 * docker build -f Dockerfile-1.0.0 -t solid:1.0.0 .
 * docker tag solid:1.0.0 jeffersonlab/solid:1.0.0
 * docker login                          (login with your docker account)
