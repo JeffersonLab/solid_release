@@ -38,7 +38,7 @@ The official github clone on ifarm for testing:
   * control-d   (exit singularity)
 * (for graphic mode)
   * singularity run /group/solid/apps/jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s2.6.1.simg &   (load for graphic mode)
-  * vncviewer localhost:1  (access for for graphic mode)
+  * vncviewer localhost:5901  (access for for graphic mode, use the right port as shown in terminal)
   * control-c   (exit vncviewer)
   * fg          (bring singularity to front)
   * control-c   (exit singularity)
