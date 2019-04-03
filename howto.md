@@ -78,20 +78,20 @@ On your local machine, you can dowload them by "scp your_jlab_username@ftp.jlab.
 * (now you are in container, run following commands inside)
   * echo $SHELL      (check if you using tcsh, if not, run tcsh)
   * set prompt = '[#Container# %n@%m %c]$ '
-* (do this if you only want to run the latest gemc,banks, and solid_gemc)
+* (do this if you want to run the precompiled latest gemc,banks, and solid_gemc at jlab)
   * setenv myGEMC /group/solid/solid_github/gemc/source
   * setenv myBANKS /group/solid/solid_github/maureeungaro/banks  
   * setenv mySoLID_GEMC /group/solid/solid_github/JeffersonLab/solid_gemc
   * source $mySoLID_GEMC/set_solid 2.3 /jlab $mySoLID_GEMC 
   * setenv LD_LIBRARY_PATH ${myGEMC}:${LD_LIBRARY_PATH}
   * setenv PATH $myBANKS/bin:${SoLID_GEMC}/source/devel:${PATH}  
-* (do this if you need to compile and run the latest gemc,banks, and solid_gemc)
+* (do this if you want to compile and run the latest gemc,banks, and solid_gemc yourself)
   * git clone https://github.com/gemc/source               (or just git pull to update it)
   * git clone https://github.com/maureeungaro/banks        (or just git pull to update it)
   * git clone https://github.com/JeffersonLab/solid_gemc   (or just git pull to update it)
-  * setenv myGEMC /group/solid/solid_github/gemc/source    (this is offical copy on ifarm, you can change it to yours)
-  * setenv myBANKS /group/solid/solid_github/maureeungaro/banks (this is offical copy on ifarm, you can change it to yours)
-  * setenv mySoLID_GEMC /group/solid/solid_github/JeffersonLab/solid_gemc (this is offical copy on ifarm, you can change it to yours)
+  * setenv myGEMC $PWD/source    
+  * setenv myBANKS $PWD/banks 
+  * setenv mySoLID_GEMC $PWD/solid_gemc 
   * source $mySoLID_GEMC/set_solid 2.3 /jlab $mySoLID_GEMC
   * cd $myGEMC
   * scons OPT=1 LIBRARY=shared -j8
