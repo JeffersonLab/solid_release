@@ -1,18 +1,18 @@
 
 # container list
 --------------------
-
 singularity container is the standard way of running solid software. 
-They are created by pull from docker container on ifarm with the following command
+
+on jlab machines, singularity container images are under /group/solid/apps/ and the list are (as of 2019/02/22):
+* jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s2.6.1.simg (regular release and it won't change)
+* jeffersonlab_solid_tag1.devel_s2.6.1.simg   (provide base package only and test latest other packages outside of contianer)
+* jeffersonlab_solid_tag2.devel_s2.6.1.simg   (provide base package only and test latest other packages outside of contianer)
+
+They are created by pull from docker container on jlab ifarm with the following command
 * module load singularity-2.6.1  (as of 2019/02/22)
 * cd /group/solid/apps/
 * setenv SINGULARITY_CACHEDIR ./
 * singularity pull docker://jeffersonlab/solid:[tag]
-
-on jlab farm singularity containers are under /group/solid/apps/ and the list are (as of 2019/02/22):
-* jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s2.6.1.simg
-* jeffersonlab_solid_tag1.devel_s2.6.1.simg
-* jeffersonlab_solid_tag2.devel_s2.6.1.simg
 
 singularity container naming convention:
 * for production container which won't change once released: "orgnization_repository_tag_digest_uploadtime_singularityversion.singularityformat"
@@ -43,6 +43,7 @@ On your local machine, you can dowload them by "scp your_jlab_username@ftp.jlab.
 --------------------
 
 ## run jeffersonlab/solid:1.0.0 
+* cd your working dir on host which will be bind into container automatically
 * load jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s2.6.1.simg
 * (now you are in container, run following commands inside)
   * echo $SHELL      (check if you using tcsh, if not, run tcsh)
@@ -55,6 +56,7 @@ On your local machine, you can dowload them by "scp your_jlab_username@ftp.jlab.
   * solid_gemc solid_SIDIS_He3_full.gcard
 
 ## run jeffersonlab/solid:1.devel 
+* cd your working dir on host which will be bind into container automatically
 * load jeffersonlab_solid_tag1.devel_s2.6.1.simg
 * (now you are in container, run following commands inside)
   * echo $SHELL      (check if you using tcsh, if not, run tcsh)
@@ -74,11 +76,12 @@ On your local machine, you can dowload them by "scp your_jlab_username@ftp.jlab.
   * solid_gemc solid_SIDIS_He3_full.gcard
 
 ## run jeffersonlab/solid:2.devel  
-* load jeffersonlab_solid_tag2.devel_s2.6.0.simg
+* cd your working dir on host which will be bind into container automatically
+* load jeffersonlab_solid_tag2.devel_s2.6.1.simg
 * (now you are in container, run following commands inside)
   * echo $SHELL      (check if you using tcsh, if not, run tcsh)
   * set prompt = '[#Container# %n@%m %c]$ '
-* (do this if you want to run the precompiled latest gemc,banks, and solid_gemc at jlab)
+* (do this if you are at jlab machine and want to run the precompiled latest gemc,banks, and solid_gemc)
   * setenv myGEMC /group/solid/solid_github/gemc/source
   * setenv myBANKS /group/solid/solid_github/maureeungaro/banks  
   * setenv mySoLID_GEMC /group/solid/solid_github/JeffersonLab/solid_gemc
@@ -120,9 +123,9 @@ On your local machine, you can dowload them by "scp your_jlab_username@ftp.jlab.
 
 # run farm job with container 
 --------------------
-THe example to run jeffersonlab/solid:2.devel is at
+An example to run jeffersonlab/solid:2.devel is at
 
-/work/solid/sim/solid_gemc/SIDIS_He3_JLAB_VERSION_1.3/pass9/farm_solid_SIDIS_He3_BeamOnTarget_outside
+/work/halla/solid/sim/solid_gemc/SIDIS_He3_JLAB_VERSION_1.3/pass9/farm_solid_SIDIS_He3_BeamOnTarget_outside
 
 It works as follows
 
