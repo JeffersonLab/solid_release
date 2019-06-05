@@ -3,21 +3,23 @@
 --------------------
 singularity container is the standard way of running solid software. 
 
-on jlab machines, singularity container images are under /group/solid/apps/ and the list are (as of 2019/02/22):
-* jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s2.6.1.simg (regular release and it won't change)
-* jeffersonlab_solid_tag1.devel_s2.6.1.simg   (provide base package only and test latest other packages outside of contianer)
-* jeffersonlab_solid_tag2.devel_s2.6.1.simg   (provide base package only and test latest other packages outside of contianer)
+(as of 2019/06/05)
+
+on jlab machines, singularity container images are under /group/solid/apps/ and the list are:
+* jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s3.2.1.sif (regular release and it won't change)
+* jeffersonlab_solid_tag1.devel_s3.2.1.sif   (provide base package only and test latest other packages outside of contianer)
+* jeffersonlab_solid_tag2.devel_s3.2.1.sif   (provide base package only and test latest other packages outside of contianer)
 
 They are created by pull from docker container on jlab ifarm with the following command
-* module load singularity-2.6.1  (as of 2019/02/22)
+* module load singularity-3.2.1
 * cd /group/solid/apps/
 * setenv SINGULARITY_CACHEDIR ./
 * singularity pull docker://jeffersonlab/solid:[tag]
 
 singularity container naming convention:
-* for production container which won't change once released: "orgnization_repository_tag_digest_uploadtime_singularityversion.singularityformat"
+* for production container which won't change once released: "orgnization_repository_tag_digest_uploadtime_singularityversion.imageformat"
 * for devel container which would update from time to time: 
-"orgnization_repository_tag_singularityversion.singularityformat"
+"orgnization_repository_tag_singularityversion.imageformat"
 
 # load container
 --------------------
@@ -27,13 +29,13 @@ On your local machine, you can dowload them by "scp your_jlab_username@ftp.jlab.
 
 * ssh -XY ifarm
 (singularity will load your shell env,so clean them up to avoid conflict. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc"  temporally.)
-* module load singularity-2.6.1
+* module load singularity-3.2.1
 * cd your_work_dir  (which will the shared dir between host and container)
 * (for batch mode)
-  * singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s2.6.1.simg  (load for batch mode)
+  * singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s3.2.1.sif  (load for batch mode)
   * control-d   (exit singularity)
 * (for graphic mode)
-  * singularity run /group/solid/apps/jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s2.6.1.simg &   (load for graphic mode)
+  * singularity run /group/solid/apps/jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s3.2.1.sif &   (load for graphic mode)
   * vncviewer localhost:5901  (access for for graphic mode, use the right port as shown in terminal)
   * control-c   (exit vncviewer)
   * fg          (bring singularity to front)
@@ -44,7 +46,7 @@ On your local machine, you can dowload them by "scp your_jlab_username@ftp.jlab.
 
 ## run jeffersonlab/solid:1.0.0 
 * cd your working dir on host which will be bind into container automatically
-* load jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s2.6.1.simg
+* load jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s3.2.1.sif
 * (now you are in container, run following commands inside)
   * echo $SHELL      (check if you using tcsh, if not, run tcsh)
   * set prompt = '[#Container# %n@%m %c]$ '
@@ -57,7 +59,7 @@ On your local machine, you can dowload them by "scp your_jlab_username@ftp.jlab.
 
 ## run jeffersonlab/solid:1.devel 
 * cd your working dir on host which will be bind into container automatically
-* load jeffersonlab_solid_tag1.devel_s2.6.1.simg
+* load jeffersonlab_solid_tag1.devel_s3.2.1.sif
 * (now you are in container, run following commands inside)
   * echo $SHELL      (check if you using tcsh, if not, run tcsh)
   * set prompt = '[#Container# %n@%m %c]$ '
@@ -77,7 +79,7 @@ On your local machine, you can dowload them by "scp your_jlab_username@ftp.jlab.
 
 ## run jeffersonlab/solid:2.devel  
 * cd your working dir on host which will be bind into container automatically
-* load jeffersonlab_solid_tag2.devel_s2.6.1.simg
+* load jeffersonlab_solid_tag2.devel_s3.2.1.sif
 * (now you are in container, run following commands inside)
   * echo $SHELL      (check if you using tcsh, if not, run tcsh)
   * set prompt = '[#Container# %n@%m %c]$ '
@@ -132,6 +134,3 @@ It works as follows
 users just need to run LongRun_sim and give start run number and end run number, then it will call exec_sim creat jsub script and submit jobs.
 
 A job includes load_singularity.sh to load container to execute do_it_all.sh inside the container to run simulation
-
-
-
