@@ -11,7 +11,7 @@ on jlab machines, singularity container images are under /group/solid/apps/ and 
 * jeffersonlab_solid_tag2.devel_s3.2.1.sif   (provide base package only and test latest other packages outside of contianer)
 
 They are created by pull from docker container on jlab ifarm with the following command
-* module load singularity-3.2.1
+* module load singularity-3.5.2
 * cd /group/solid/apps/
 * setenv SINGULARITY_CACHEDIR ./
 * singularity pull docker://jeffersonlab/solid:[tag]
