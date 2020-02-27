@@ -11,7 +11,7 @@ on jlab machines, singularity container images are under /group/solid/apps/ and 
 * jeffersonlab_solid_tag2.devel_s3.2.1.sif   (provide base package only and test latest other packages outside of contianer)
 
 They are created by pull from docker container on jlab ifarm with the following command
-* module load singularity-3.5.2
+* module load singularity
 * cd /group/solid/apps/
 * setenv SINGULARITY_CACHEDIR ./
 * singularity pull docker://jeffersonlab/solid:[tag]
@@ -29,7 +29,7 @@ On your local machine, you can dowload them by "scp your_jlab_username@ftp.jlab.
 
 * ssh -XY ifarm
 (singularity will load your shell env,so clean them up to avoid conflict. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc"  temporally.)
-* module load singularity-3.2.1
+* module load singularity
 * cd your_work_dir  (which will the shared dir between host and container)
 * (for batch mode)
   * singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s3.2.1.sif  (load for batch mode)
@@ -125,12 +125,12 @@ On your local machine, you can dowload them by "scp your_jlab_username@ftp.jlab.
 
 # run farm job with container 
 --------------------
-An example to run jeffersonlab/solid:2.devel is at
+* examples at /work/halla/solid/sim/solid_gemc/SIDIS_He3_JLAB_VERSION_1.3/pass9/
+** run jeffersonlab/solid:1.0.0 with solid_gemc repo inside container "farm_solid_SIDIS_He3_BeamOnTarget_tag1.0.0_inside"
+** run jeffersonlab/solid:1.devel with solid_gemc repo inside container "farm_solid_SIDIS_He3_BeamOnTarget_tag1.devel_inside" and outside "farm_solid_SIDIS_He3_BeamOnTarget_tag1.devel_outside"
+** run jeffersonlab/solid:2.devel with solid_gemc repo inside container "farm_solid_SIDIS_He3_BeamOnTarget_tag2.devel_inside" and outside "farm_solid_SIDIS_He3_BeamOnTarget_tag2.devel_outside"
 
-/work/halla/solid/sim/solid_gemc/SIDIS_He3_JLAB_VERSION_1.3/pass9/farm_solid_SIDIS_He3_BeamOnTarget_outside
-
-It works as follows
-
-users just need to run LongRun_sim and give start run number and end run number, then it will call exec_sim creat jsub script and submit jobs.
-
-A job includes load_singularity.sh to load container to execute do_it_all.sh inside the container to run simulation
+* Copy files (except any out* files) to your work dir to test it and works as follows
+** jobs run load_singularity.sh which load container to execute do_it_all.sh inside the container to run simulation, you can just run load_singularity.sh on ifarm to test a job locally
+** To submit jobs, you need to run LongRun_sim and give start run number and end run number, then it will call exec_sim creat jsub script and submit jobs.
+** The output will be created in the same dir
