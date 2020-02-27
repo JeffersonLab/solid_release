@@ -122,9 +122,9 @@ On your local machine, you can dowload them by "scp your_jlab_username@ftp.jlab.
   * solid_gemc solid_PVDIS_LD2_full_moved.gcard
   * solid_gemc solid_SIDIS_He3_full_moved.gcard
 
-
-# run farm job with container 
 --------------------
+# run farm jobs with container 
+
 * examples at /work/halla/solid/sim/solid_gemc/SIDIS_He3_JLAB_VERSION_1.3/pass9/
  * run jeffersonlab/solid:1.0.0 with solid_gemc repo inside container "farm_solid_SIDIS_He3_BeamOnTarget_tag1.0.0_inside"
  * run jeffersonlab/solid:1.devel with solid_gemc repo inside container "farm_solid_SIDIS_He3_BeamOnTarget_tag1.devel_inside" and outside "farm_solid_SIDIS_He3_BeamOnTarget_tag1.devel_outside"
