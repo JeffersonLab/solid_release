@@ -126,11 +126,11 @@ On your local machine, you can dowload them by "scp your_jlab_username@ftp.jlab.
 # run farm job with container 
 --------------------
 * examples at /work/halla/solid/sim/solid_gemc/SIDIS_He3_JLAB_VERSION_1.3/pass9/
-** run jeffersonlab/solid:1.0.0 with solid_gemc repo inside container "farm_solid_SIDIS_He3_BeamOnTarget_tag1.0.0_inside"
-** run jeffersonlab/solid:1.devel with solid_gemc repo inside container "farm_solid_SIDIS_He3_BeamOnTarget_tag1.devel_inside" and outside "farm_solid_SIDIS_He3_BeamOnTarget_tag1.devel_outside"
-** run jeffersonlab/solid:2.devel with solid_gemc repo inside container "farm_solid_SIDIS_He3_BeamOnTarget_tag2.devel_inside" and outside "farm_solid_SIDIS_He3_BeamOnTarget_tag2.devel_outside"
+ * run jeffersonlab/solid:1.0.0 with solid_gemc repo inside container "farm_solid_SIDIS_He3_BeamOnTarget_tag1.0.0_inside"
+ * run jeffersonlab/solid:1.devel with solid_gemc repo inside container "farm_solid_SIDIS_He3_BeamOnTarget_tag1.devel_inside" and outside "farm_solid_SIDIS_He3_BeamOnTarget_tag1.devel_outside"
+ * run jeffersonlab/solid:2.devel with solid_gemc repo inside container "farm_solid_SIDIS_He3_BeamOnTarget_tag2.devel_inside" and outside "farm_solid_SIDIS_He3_BeamOnTarget_tag2.devel_outside"
 
 * Copy files (except any out* files) to your work dir to test it and works as follows
-** jobs run load_singularity.sh which load container to execute do_it_all.sh inside the container to run simulation, you can just run load_singularity.sh on ifarm to test a job locally
-** To submit jobs, you need to run LongRun_sim and give start run number and end run number, then it will call exec_sim creat jsub script and submit jobs.
-** The output will be created in the same dir
+ * jobs run load_singularity.sh which load container to execute do_it_all.sh inside the container to run simulation, you can just run load_singularity.sh on ifarm to test a job locally
+ * To submit jobs, you need to run LongRun_sim and give start run number and end run number, then it will call exec_sim creat jsub script and submit jobs.
+ * The output will be created in the same dir
