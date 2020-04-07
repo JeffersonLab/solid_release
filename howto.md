@@ -131,19 +131,20 @@ On your local machine, you can dowload container images by "scp your_jlab_userna
   * echo $SHELL      (check if you using tcsh, if not, run tcsh)
   * set prompt = '[#Container# %n@%m %c]$ '
 * (do this if you are at jlab machine and want to run precompiled solid_gemc)
- * setenv SoLID_GEMC /group/solid/solid_github/JeffersonLab/solid_gemc
- * setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
- * setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${PATH}
+  * setenv SoLID_GEMC /group/solid/solid_github/JeffersonLab/solid_gemc
+  * setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
+  * setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${PATH}
 * (do this if you want to compile and run solid_gemc yourself)
- * git clone https://github.com/JeffersonLab/solid_gemc   (or just git pull to update it)
- * cd solid_gemc/source/${GEMC_VERSION}
- * scons OPT=1 -j4
- * setenv SoLID_GEMC $PWD/solid_gemc
- * setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
- * setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${PATH}
-* (run solid_gemc with 3D field map)
+  * git clone https://github.com/JeffersonLab/solid_gemc   (or just git pull to update it)
+  * cd solid_gemc/source/${GEMC_VERSION}
+  * scons OPT=1 -j4
+  * setenv SoLID_GEMC $PWD/solid_gemc
+  * setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
+  * setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${PATH}
   * cd $SoLID_GEMC/field/
-  * wget https://hallaweb.jlab.org/12GeV/SoLID/download/field/solenoid_v1.dat or https://hallaweb.jlab.org/12GeV/SoLID/download/field/solenoid_v2.dat  
+  * wget https://hallaweb.jlab.org/12GeV/SoLID/download/field/solenoid_v1.dat 
+  * wget https://hallaweb.jlab.org/12GeV/SoLID/download/field/solenoid_v2.dat  
+* (run solid_gemc with 3D field map) 
   * cd $SoLID_GEMC/script
   * solid_gemc solid_PVDIS_LD2_full_moved.gcard
   * solid_gemc solid_SIDIS_He3_full_moved.gcard
