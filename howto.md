@@ -121,6 +121,17 @@ On your local machine, you can dowload them by "scp your_jlab_username@ftp.jlab.
   * cd $SoLID_GEMC/script
   * solid_gemc solid_PVDIS_LD2_full_moved.gcard
   * solid_gemc solid_SIDIS_He3_full_moved.gcard
+  
+## run with latest gemc devel
+ * module load singularity/3.5.3
+ * singularity run apps/jeffersonlab_gemc_tagdevel_dugestsha256:4b2d82ec4abf689a36cbe863a27f7821c29341663dd89ba46cbd46b4b6bb0d50_s3.5.2.sif &
+ * vncviewer localhost:(the port number shown previously)
+ * (below are inside container)
+ * setenv SoLID_GEMC /group/solid/solid_github/JeffersonLab/solid_gemc
+ * setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
+ * setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${PATH}
+ * cd $SoLID_GEMC/script
+ * solid_gemc solid_SIDIS_He3_full_moved.gcard
 
 --------------------
 # run farm jobs with container 
