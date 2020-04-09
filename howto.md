@@ -7,12 +7,13 @@ on jlab machines, singularity container images are under /group/solid/apps/ and 
 * jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s3.2.1.sif (regular release and it won't change)
 * jeffersonlab_solid_tag1.devel_s3.2.1.sif   (provide base package only and test latest other packages outside of contianer)
 * jeffersonlab_solid_tag2.devel_s3.2.1.sif   (provide base package only and test latest other packages outside of contianer)
-* jeffersonlab_gemc_tagdevel_dugestsha256:4b2d82ec4abf689a36cbe863a27f7821c29341663dd89ba46cbd46b4b6bb0d50_s3.5.2.sif
+* jeffersonlab_jlabce_tagdevel_digestsha256:01eac4333bdd2077233076363983d1898775c6c61e8f5c5b0b9f324c75c4da3c_20200409_s3.5.3.sif
 
 They are created by pull from docker container on jlab ifarm with the following command
 * module load singularity
 * cd /group/solid/apps/
-* setenv SINGULARITY_CACHEDIR ./
+* setenv SINGULARITY_CACHEDIR /scratch/$USER
+* setenv SINGULARITY_TMPDIR /scratch/$USER
 * singularity pull docker://jeffersonlab/solid:[tag]
 
 singularity container naming convention:
@@ -123,10 +124,10 @@ On your local machine, you can dowload container images by "scp your_jlab_userna
   * solid_gemc solid_PVDIS_LD2_full_moved.gcard
   * solid_gemc solid_SIDIS_He3_full_moved.gcard
   
-## run with latest gemc devel
+## run with latest jlabce devel
 
 * cd your working dir on host which will be bound into container automatically
-* load jeffersonlab_gemc_tagdevel_dugestsha256:4b2d82ec4abf689a36cbe863a27f7821c29341663dd89ba46cbd46b4b6bb0d50_s3.5.2.sif by following instruction above
+*  by following instruction above and load "jeffersonlab_jlabce_tagdevel_digestsha256:01eac4333bdd2077233076363983d1898775c6c61e8f5c5b0b9f324c75c4da3c_20200409_s3.5.3.sif"
 * (now you are in container, run following commands inside)
   * echo $SHELL      (check if you using tcsh, if not, run tcsh)
   * set prompt = '[#Container# %n@%m %c]$ '
@@ -142,9 +143,9 @@ On your local machine, you can dowload container images by "scp your_jlab_userna
   * setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
   * setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${PATH}
   * cd $SoLID_GEMC/field/
-  * wget https://hallaweb.jlab.org/12GeV/SoLID/download/field/solenoid_v1.dat 
+  * wget https://hallaweb.jlab.org/12GeV/SoLID/download/field/solenoid_v1.dat
   * wget https://hallaweb.jlab.org/12GeV/SoLID/download/field/solenoid_v2.dat  
-* (run solid_gemc with 3D field map) 
+* (run solid_gemc with 3D field map v1 as default) 
   * cd $SoLID_GEMC/script
   * solid_gemc solid_PVDIS_LD2_full_moved.gcard
   * solid_gemc solid_SIDIS_He3_full_moved.gcard
