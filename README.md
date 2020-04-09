@@ -12,11 +12,7 @@ Instructions:
 --------------------
 (replace the tag 1.0.0 with the version you want to run)
 
-To use with singularity
-* singularity pull docker://jeffersonlab/solid:1.0.0 (pull latest version)
-* singularity shell -s /bin/tcsh solid-1.0.0.simg (batch mode)
-* singularity run solid-1.0.0.simg (graphic mode with vnc by vncviewer or webbrowser)
-* vncviewer localhost:1 or firefox localhost:6080
+The official way to use it is with Singularity, see details in [howto](https://github.com/JeffersonLab/solid_release/blob/master/howto.md)
 
 To use with docker
 * docker pull jeffersonlab/solid:1.0.0 (pull latest version)
@@ -31,8 +27,6 @@ To build and push the container:
 * docker login                          (login with your docker account)
 * docker push jeffersonlab/solid:1.0.0  (your docker account need the right privilege to make this work)
 * docker rmi solid:1.0.0   (remove the tmp tag)
-
-See more details in [howto](https://github.com/JeffersonLab/solid_release/blob/master/howto.md)
 
 Structure
 --------------------
