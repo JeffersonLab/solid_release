@@ -40,8 +40,7 @@ To access any jlab internal machine or ifarm with graphic access by vnc, see htt
   * fg          (bring singularity to front)
   * control-c   (exit singularity)
 
-On your local machine, you can dowload container images by "scp your_jlab_username@ftp.jlab.org:/group/solid/apps/[singularity_container_filename] ./", then load it
-
+On your local machine, you can dowload container images from https://hallaweb.jlab.org/12GeV/SoLID/download/singularity/ or "scp your_jlab_username@ftp.jlab.org:/group/solid/apps/[singularity_container_filename] ./"
 
 # run software after loading container 
 --------------------
