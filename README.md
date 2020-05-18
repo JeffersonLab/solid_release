@@ -10,27 +10,29 @@ see analysis and got notification at
 
 # Quick Start
 
-on jlab ifarm, prepare singularity by
- "module load singularity"
+Following steps below to test solid software in graphic mode
+
+* on jlab ifarm, prepare singularity by
+ * "module load singularity"
  
-on your local centos/rhel/scientific linux, prepare singularity by "yum install singularity" and download https://hallaweb.jlab.org/12GeV/SoLID/download/singularity/jeffersonlab_jlabce_tagdevel_digestsha256:01eac4333bdd2077233076363983d1898775c6c61e8f5c5b0b9f324c75c4da3c_20200409_s3.5.3.sif
+* on your local centos/rhel/scientific linux, prepare singularity by "yum install singularity" and download https://hallaweb.jlab.org/12GeV/SoLID/download/singularity/jeffersonlab_jlabce_tagdevel_digestsha256:01eac4333bdd2077233076363983d1898775c6c61e8f5c5b0b9f324c75c4da3c_20200409_s3.5.3.sif
 
-load container by following "
-singularity run /group/solid/apps/jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s3.2.1.sif &" (load for graphic mode in background)
-vncviewer localhost:5901 (access for graphic mode, use the right port as shown in terminal)
+* load container by following 
+ * "singularity run /group/solid/apps/jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s3.2.1.sif &" (load for graphic mode in background)
+ * vncviewer localhost:5901 (access for graphic mode, use the right port as shown in terminal)
 
-run following inside vncviewer for solid simulation
-   echo $SHELL (check if you using tcsh, if not, run tcsh)
-   set prompt = '[#Container# %n@%m %c]$ '
-   source /solid/solid_gemc/set_solid 1.3
-   cd $SoLID_GEMC/script
-   solid_gemc solid_PVDIS_LD2_full.gcard
-   solid_gemc solid_SIDIS_He3_full.gcard
+* run following inside vncviewer for solid simulation
+  * echo $SHELL (check if you using tcsh, if not, run tcsh)
+  * set prompt = '[#Container# %n@%m %c]$ '
+  * source /solid/solid_gemc/set_solid 1.3
+  * cd $SoLID_GEMC/script
+  * solid_gemc solid_PVDIS_LD2_full.gcard
+  * solid_gemc solid_SIDIS_He3_full.gcard
 
-Do the following to exit
-close vncviewer
-fg (bring singularity to front in the host)
-control-c (exit singularity in the host)   
+* Do the following to exit
+ * close vncviewer
+ * fg (bring singularity to front in the host)
+ * control-c (exit singularity in the host)   
 
 # Instructions:  
 (replace the tag 1.0.0 with the version you want to run)
