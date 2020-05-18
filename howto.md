@@ -32,13 +32,15 @@ To access any jlab internal machine or ifarm with graphic access by vnc, see htt
 * cd your_work_dir  (which will the shared dir between host and container)
 * (for batch mode)
   * singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s3.2.1.sif  (load for batch mode)
+  * run code inside container
   * control-d   (exit singularity)
 * (for graphic mode)
   * singularity run /group/solid/apps/jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s3.2.1.sif &   (load for graphic mode in background)
   * vncviewer localhost:5901  (access for graphic mode, use the right port as shown in terminal)
-  * control-c   (exit vncviewer)
-  * fg          (bring singularity to front)
-  * control-c   (exit singularity)
+  * run code inside container in vncviewer
+  * close vncviewer
+  * fg          (bring singularity to front in the host)
+  * control-c   (exit singularity in the host)
 
 On your local machine, you can dowload container images from https://hallaweb.jlab.org/12GeV/SoLID/download/singularity/ or "scp your_jlab_username@ftp.jlab.org:/group/solid/apps/[singularity_container_filename] ./"
 
