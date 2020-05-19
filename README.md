@@ -18,7 +18,7 @@ Following steps below to test solid software in graphic mode
 
 * load container by following 
   * "singularity run /group/solid/apps/jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s3.2.1.sif &" (load for graphic mode in background)
-  * vncviewer localhost:5901 (access for graphic mode, use the right port as shown in terminal)
+  * vncviewer localhost:5901 or firefox localhost:6080 (access for graphic mode, use the right port as shown in terminal)
 
 * run following inside vncviewer for solid simulation
   * echo $SHELL (check if you using tcsh, if not, run tcsh)
@@ -60,11 +60,8 @@ Structure
 Reference
 --------------------
 
-For more detailed general instruction about singularity and docker, include jlab ifarm singularity installation and how to use them on windows and mac, refer to
+For more detailed general instruction about singularity and docker, include jlab ifarm singularity installation and how to use them on windows and mac, refer to https://hallaweb.jlab.org/wiki/index.php/Note_about_container
 
-https://hallaweb.jlab.org/wiki/index.php/Note_about_container
-
-You may download a standalone vncviewer at
-https://www.realvnc.com/en/connect/download/viewer/linux/
+You may get vncviewer by "yum install tigervnc" or download a standalone version at https://www.realvnc.com/en/connect/download/viewer/linux/
 
 
