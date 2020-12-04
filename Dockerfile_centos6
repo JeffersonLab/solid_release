@@ -1,8 +1,0 @@
-FROM centos:6
-
-RUN yum install -y tcsh epel-release \
-    && yum install -y scons gcc-c++ gcc-gfortran mariadb mariadb-devel mariadb-libs \
-    && yum install -y libX11-devel mesa-libGLU-devel libXt-devel libXmu-devel libXrender-devel expat-devel libXpm-devel libXft-devel libAfterImage libAfterImage-devel libXi \    
-    && yum install -y cmake wget subvesion subversion git make file xorg-x11-fonts-Type1 mesa-dri-drivers xkeyboard-config yumex \
-    && yum install -y tighervnc tighervnc-server fluxbox xterm
-    
