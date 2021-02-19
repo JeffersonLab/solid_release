@@ -1,0 +1,11 @@
+FROM centos:7
+LABEL maintainer "Zhiwen Zhao <zwzhao@jlab.org>"
+
+RUN yum install -y tcsh epel-release \
+    && yum install -y scons gcc-c++ gcc-gfortran cmake wget subversion git make file xterm nano 
+    
+RUN yum install -y boost-devel python-devel
+    
+SHELL ["/bin/tcsh", "-c"]
+
+WORKDIR /evgen
