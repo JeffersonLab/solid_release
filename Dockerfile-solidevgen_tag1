@@ -5,6 +5,8 @@ RUN yum install -y tcsh epel-release \
     && yum install -y scons gcc-c++ gcc-gfortran cmake wget subversion git make file xterm nano 
     
 RUN yum install -y boost-devel python-devel
+
+RUN yum install -y cmake3
     
 SHELL ["/bin/tcsh", "-c"]
 
