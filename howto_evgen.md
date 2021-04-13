@@ -3,7 +3,7 @@ instruction on ifarm to test container "solidevgen"
 (run a pre-compiled generator)
 * module load singularity
 * cd your_work_dir
-* singularity exec -B /scigroup/cvmfs/halla/solid/soft/solidevgen_tag1:/evgen /scigroup/cvmfs/halla/solid/soft/container/jeffersonlab_solidevgen_tag1_latest.sif /evgen/evgen_inclusive_e/run
+* singularity exec -B /scigroup/cvmfs/halla/solid/soft/solidevgen_tag1:/evgen /scigroup/cvmfs/halla/solid/soft/container/jeffersonlab_solidevgen_tag1_latest.sif /evgen/evgen_inclusive_e/run commitb5fb58e
 
 (compile a generator)
 * cd your_work_dir
