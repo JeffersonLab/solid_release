@@ -126,7 +126,7 @@ To access any jlab internal machine or ifarm with graphic access by vnc, see htt
   * solid_gemc solid_PVDIS_LD2_full_moved.gcard
   * solid_gemc solid_SIDIS_He3_full_moved.gcard
   
-## run with latest jlabce devel
+## run with latest jlabce devel commit2fef2c2
 
 * cd your working dir on host which will be bound into container automatically
 *  load container by
