@@ -1,4 +1,3 @@
-
 # container list
 --------------------
 singularity container is the standard way of running solid software. 
@@ -129,6 +128,8 @@ To access any jlab internal machine or ifarm with graphic access by vnc, see htt
 ## run with latest jlabce devel commit2fef2c2
 
 * cd your working dir on host which will be bound into container automatically
+*  if you are on ifarm, run this
+  * module load singularity
 *  load container by
   * singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_jlabce_tagdevel_digestsha256:01eac4333bdd2077233076363983d1898775c6c61e8f5c5b0b9f324c75c4da3c_20200409_s3.5.3.sif
 * (now you are in container, run following commands inside)
