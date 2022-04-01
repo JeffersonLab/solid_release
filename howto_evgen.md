@@ -5,6 +5,7 @@ instruction on ifarm to test event generator container "solidevgen"
 * module load singularity/3.9.5
 * cd your_work_dir
 * singularity exec -B /scigroup/cvmfs/halla/solid/soft/solidevgen_tag1:/evgen /scigroup/cvmfs/halla/solid/soft/container/jeffersonlab_solidevgen_tag1_latest.sif /evgen/evgen_inclusive_e/run commited4fe49
+
 or on OSG, run the following
 * singularity exec -B /cvmfs/oasis.opensciencegrid.org/jlab/halla/solid/soft/solidevgen_tag1:/evgen /cvmfs/oasis.opensciencegrid.org/jlab/halla/solid/soft/container/jeffersonlab_solidevgen_tag1_latest.sif /evgen/evgen_inclusive_e/run commited4fe49
 
