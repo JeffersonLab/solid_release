@@ -86,7 +86,7 @@ To access any jlab internal machine or ifarm with graphic access by vnc, see htt
   * setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
   * setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${PATH}
   * cd $SoLID_GEMC/field/
-  * wget https://solid.jlab.org/files/field/solenoid_v2.dat  
+  * wget https://solid.jlab.org/files/field/solenoid_v3.dat  
   * cd $SoLID_GEMC/source/${GEMC_VERSION}
   * make change to code
   * scons OPT=1 -j4
