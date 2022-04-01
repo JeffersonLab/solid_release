@@ -1,17 +1,19 @@
 instruction on ifarm to test container "solidevgen"
 
 (run a pre-compiled generator)
-* module load singularity
+* module load singularity/3.9.5
 * cd your_work_dir
-* singularity exec -B /scigroup/cvmfs/halla/solid/soft/solidevgen_tag1:/evgen /scigroup/cvmfs/halla/solid/soft/container/jeffersonlab_solidevgen_tag1_latest.sif /evgen/evgen_inclusive_e/run commitb5fb58e
+* singularity exec -B /cvmfs/oasis.opensciencegrid.org/jlab/halla/solid/soft/solidevgen_tag1:/evgen /cvmfs/oasis.opensciencegrid.org/jlab/halla/solid/soft/container/jeffersonlab_solidevgen_tag1_latest.sif /evgen/evgen_inclusive_e/run commited4fe49
 
-(compile a generator)
-* cd your_work_dir
-* git clone https://github.com/JeffersonLab/evgen_inclusive_e commitb5fb58e
-* singularity shell -s /bin/tcsh -B /scigroup/cvmfs/halla/solid/soft/solidevgen_tag1:/evgen /scigroup/cvmfs/halla/solid/soft/container/jeffersonlab_solidevgen_tag1_latest.sif
-* set prompt = '[#Container# %n@%m %c]$ ' #now you are inside the container
+(compile a generator for the official location)
+* cd /scigroup/cvmfs/halla/solid/soft/solidevgen_tag1 (you can change this for your personal location)
+* module load singularity/3.9.5
+* singularity shell -s /bin/tcsh -B ${PWD}:/evgen /cvmfs/oasis.opensciencegrid.org/jlab/halla/solid/soft/container/jeffersonlab_solidevgen_tag1_latest.sif
+* set prompt = '[#Container# %n@%m %c]$ '
+* cd evgen_inclusive_e
 * source /evgen/evgen_inclusive_e/setup
-* cd commitb5fb58e
+* git clone https://github.com/JeffersonLab/evgen_inclusive_e commited4fe49
+* cd commited4fe49
 * cmake3 .
 * make
 
