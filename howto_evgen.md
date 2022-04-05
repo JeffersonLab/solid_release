@@ -7,7 +7,7 @@ instruction on ifarm to test event generator container "solidevgen"
 * singularity exec -B /scigroup/cvmfs/halla/solid/soft/solidevgen_tag1:/evgen /scigroup/cvmfs/halla/solid/soft/container/jeffersonlab_solidevgen_tag1_latest.sif /evgen/evgen_inclusive_e/run commited4fe49
 
 or on OSG, run the following
-* singularity exec -B /cvmfs/oasis.opensciencegrid.org/jlab/halla/solid/soft/solidevgen_tag1:/evgen /cvmfs/oasis.opensciencegrid.org/jlab/halla/solid/soft/container/jeffersonlab_solidevgen_tag1_latest.sif /evgen/evgen_inclusive_e/run commited4fe49
+* singularity exec -B /cvmfs/oasis.opensciencegrid.org/jlab/halla/solid/soft/solidevgen_tag1:/evgen /cvmfs/oasis.opensciencegrid.org/jlab/halla/solid/soft/container/jeffersonlab_solidevgen_tag1_latest.sif /evgen/evgen_inclusive_e/run commitfea2654
 
 # compile a generator for the official location
 --------------------
@@ -17,8 +17,8 @@ or on OSG, run the following
 * set prompt = '[#Container# %n@%m %c]$ '
 * cd evgen_inclusive_e
 * source /evgen/evgen_inclusive_e/setup
-* git clone https://github.com/JeffersonLab/evgen_inclusive_e commited4fe49
-* cd commited4fe49
+* git clone https://github.com/JeffersonLab/evgen_inclusive_e commitfea2654
+* cd commitfea2654
 * cmake3 .
 * make
 
