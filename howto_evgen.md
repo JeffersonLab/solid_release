@@ -31,3 +31,9 @@ instruction on ifarm/OSG for event generator container "solidevgen"
   * cd commitfea2654
   * cmake3 .
   * make
+* compile evgen_bggen
+  * cd /evgen/evgen_bggen
+  * source setup
+  * git clone https://github.com/JeffersonLab/evgen_bggen commite04ff27
+  * cd commite04ff27
+  * make
