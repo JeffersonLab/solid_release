@@ -1,11 +1,11 @@
 # quickstart
 --------------------
-here is how to run official software on jlab ifarm
+here is a quickstart run run official solid_gemc software on jlab ifarm
 
 * ssh -XY ifarm
 * cd your working dir on host which will be bound into container automatically
-* module load singularity/3.9.2
-* singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:431fa1b9d51d6225d05d179ba81dbf8ff77c222770966b1a9bfc2960f4dcd413_20211215_s3.8.3.sif
+* module load singularity/3.9.5
+* singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
 * (now you are in container, run following commands inside)
   * echo $SHELL      (check if you using tcsh, if not, run tcsh)
   * set prompt = '[#Container# %n@%m %c]$ ' (change shell promt to better tell where you are)
@@ -20,17 +20,23 @@ here is how to run official software on jlab ifarm
 --------------------
 singularity container is the standard way of running solid software. 
 
-on jlab machines, singularity container images are under /group/solid/apps/ and the list are:
-* jeffersonlab_jlabce_tag2.5_digest:sha256:431fa1b9d51d6225d05d179ba81dbf8ff77c222770966b1a9bfc2960f4dcd413_20211215_s3.8.3.sif
-* jeffersonlab_jlabce_tagdevel_digestsha256:01eac4333bdd2077233076363983d1898775c6c61e8f5c5b0b9f324c75c4da3c_20200409_s3.5.3.sif
-* jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s3.2.1.sif (regular release and it won't change)
-* jeffersonlab_solid_tag1.devel_s3.2.1.sif   (provide base package only and test latest other packages outside of contianer)
-* jeffersonlab_solid_tag2.devel_s3.2.1.sif   (provide base package only and test latest other packages outside of contianer)
+we run solid_gemc outside of container [jeffersonlab/jlabce](https://hub.docker.com/r/jeffersonlab/jlabce/tags/)
 
-On your local machine, you can dowload container images from https://hallaweb.jlab.org/12GeV/SoLID/download/singularity/ or "scp your_jlab_username@ftp.jlab.org:/group/solid/apps/[singularity_container_filename] ./"
+on jlab machines, singularity container images are under /group/solid/apps/ and the list are:
+* latest
+  * jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif (jlab_version 2.5 with gemc 2.9)
+* outdated
+  * jeffersonlab_jlabce_tag2.5_digest:sha256:431fa1b9d51d6225d05d179ba81dbf8ff77c222770966b1a9bfc2960f4dcd413_20211215_s3.8.3.sif (jlab_version 2.5 with gemc 2.9, but need ~/.jlab_software to work)
+  * jeffersonlab_jlabce_tagdevel_digestsha256:01eac4333bdd2077233076363983d1898775c6c61e8f5c5b0b9f324c75c4da3c_20200409_s3.5.3.sif (jlab_version devel with gemc commit2fef2c2)
+  * jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s3.2.1.sif (old way in 2018 to run olid_gemc release v1.0.0 inside of container [jeffersonlab/solid:1.0.0](https://hub.docker.com/r/jeffersonlab/solid/tags/1.0.0)
+which is based on container [jeffersonlab/jlabce:1.3m](https://hub.docker.com/r/jeffersonlab/jlabce/tags/1.3m) including jlab_version 1.3m with gemc 2.3m)
+  * jeffersonlab_solid_tag1.devel_s3.2.1.sif (like solid_tag1.0.0, but provide base package only and test other packages outside of contianer)
+  * jeffersonlab_solid_tag2.devel_s3.2.1.sif (more test with base package only)
+
+On your local machine, you can dowload container images by "scp your_jlab_username@ftp.jlab.org:/group/solid/apps/[singularity_container_filename] ./"
 
 They are created by pulling from docker container on jlab ifarm with the following command
-* module load singularity/3.9.2
+* module load singularity/3.9.5
 * cd /group/solid/apps/
 * setenv SINGULARITY_CACHEDIR /scratch/$USER
 * setenv SINGULARITY_TMPDIR /scratch/$USER
@@ -45,6 +51,10 @@ singularity container naming convention:
 --------------------
 The example below is on jlab ifarm, farm, or any jlab internal machine with direct access like nfs to /group/solid/apps/
 
+* on jlab ifarm, prepare singularity by "module load singularity/3.9.5"
+ 
+* on your local centos/rhel/scientific linux, prepare singularity by "yum install singularity"
+
 To access any jlab internal machine or ifarm with graphic access by vnc, see https://hallaweb.jlab.org/wiki/index.php/Ifarm_graphic_mode
 
 * ssh -XY ifarm
@@ -52,11 +62,11 @@ To access any jlab internal machine or ifarm with graphic access by vnc, see htt
 * module load singularity/3.9.2
 * cd your_work_dir  (which will be shared dir between host and container automatically)
 * (general terminal and graphic mode)
-  * singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:431fa1b9d51d6225d05d179ba81dbf8ff77c222770966b1a9bfc2960f4dcd413_20211215_s3.8.3.sif
+  * singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
   * run code inside container
   * control-d   
 * (better graphic mode)
-  * singularity run /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:431fa1b9d51d6225d05d179ba81dbf8ff77c222770966b1a9bfc2960f4dcd413_20211215_s3.8.3.sif &   (load for graphic mode in background)
+  * singularity run /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif &   (load for graphic mode in background)
   * vncviewer localhost:5901  (access for graphic mode, use the right port as shown in terminal)
   * run code inside container in vncviewer
   * close vncviewer
@@ -66,13 +76,13 @@ To access any jlab internal machine or ifarm with graphic access by vnc, see htt
 # run software after loading container 
 --------------------
 
-## run with jeffersonlab/jlabce:2.5
+## run solid_gemc with jeffersonlab/jlabce:2.5
 
 * cd your working dir on host which will be bound into container automatically
 *  if you are on ifarm, run this
-  * module load singularity/3.9.2
+  * module load singularity/3.9.5
 *  load container by
-  * singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:431fa1b9d51d6225d05d179ba81dbf8ff77c222770966b1a9bfc2960f4dcd413_20211215_s3.8.3.sif
+  * singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
 * (now you are in container, run following commands inside)
   * echo $SHELL      (check if you using tcsh, if not, run tcsh)
   * set prompt = '[#Container# %n@%m %c]$ ' (change shell promt to better tell where you are)
@@ -95,7 +105,7 @@ To access any jlab internal machine or ifarm with graphic access by vnc, see htt
   * solid_gemc solid_SIDIS_He3_moved_full.gcard
   * solid_gemc solid_PVDIS_LD2_moved_full.gcard
 
-## run with jeffersonlab/jlabce:devel with gemc commit2fef2c2
+## run solid_gemc with jeffersonlab/jlabce:devel with gemc commit2fef2c2 (outdated)
 
 * cd your working dir on host which will be bound into container automatically
 *  if you are on ifarm, run this
@@ -124,7 +134,7 @@ To access any jlab internal machine or ifarm with graphic access by vnc, see htt
   * solid_gemc solid_SIDIS_He3_moved_full.gcard
   * solid_gemc solid_PVDIS_LD2_moved_full.gcard
 
-## run jeffersonlab/solid:1.0.0 
+## run solid_gemc with jeffersonlab/solid:1.0.0  (outdated)
 * cd your working dir on host which will be bind into container automatically
 * load jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s3.2.1.sif
 * (now you are in container, run following commands inside)
@@ -137,7 +147,7 @@ To access any jlab internal machine or ifarm with graphic access by vnc, see htt
   * solid_gemc solid_PVDIS_LD2_full.gcard
   * solid_gemc solid_SIDIS_He3_full.gcard
 
-## run jeffersonlab/solid:1.devel  (outdated as of 2020/04)
+## run solid_gemc with jeffersonlab/solid:1.devel  (outdated)
 * cd your working dir on host which will be bind into container automatically
 * load jeffersonlab_solid_tag1.devel_s3.2.1.sif
 * (now you are in container, run following commands inside)
@@ -157,7 +167,7 @@ To access any jlab internal machine or ifarm with graphic access by vnc, see htt
   * solid_gemc solid_PVDIS_LD2_full.gcard
   * solid_gemc solid_SIDIS_He3_full.gcard
 
-## run jeffersonlab/solid:2.devel  (outdated as of 2020/04)
+## run solid_gemc with jeffersonlab/solid:2.devel  (outdated)
 * cd your working dir on host which will be bound into container automatically
 * load jeffersonlab_solid_tag2.devel_s3.2.1.sif
 * (now you are in container, run following commands inside)
@@ -201,16 +211,8 @@ To access any jlab internal machine or ifarm with graphic access by vnc, see htt
   * cd $SoLID_GEMC/script
   * solid_gemc solid_SIDIS_He3_moved_full.gcard
   * solid_gemc solid_PVDIS_LD2_moved_full.gcard
-     
---------------------
+
 # run farm jobs with container 
+--------------------
+see examples at https://github.com/JeffersonLab/solid_gemc/tree/master/script/farm
 
-* examples at /work/halla/solid/sim/solid_gemc/SIDIS_He3_JLAB_VERSION_1.3/pass9/
-  * run jeffersonlab/solid:1.0.0 with solid_gemc repo inside container "farm_solid_SIDIS_He3_BeamOnTarget_tag1.0.0_inside"
-  * run jeffersonlab/solid:1.devel with solid_gemc repo inside container "farm_solid_SIDIS_He3_BeamOnTarget_tag1.devel_inside" and outside "farm_solid_SIDIS_He3_BeamOnTarget_tag1.devel_outside"
-  * run jeffersonlab/solid:2.devel with solid_gemc repo inside container "farm_solid_SIDIS_He3_BeamOnTarget_tag2.devel_inside" and outside "farm_solid_SIDIS_He3_BeamOnTarget_tag2.devel_outside"
-
-* Copy files (except any out* files) to your work dir to test it and works as follows
-  * jobs run load_singularity.sh which load container to execute do_it_all.sh inside the container to run simulation, you can just run load_singularity.sh on ifarm to test a job locally
-  * To submit jobs, you need to run LongRun_sim and give start run number and end run number, then it will call exec_sim creat jsub script and submit jobs.
-  * The output will be created in the same dir
