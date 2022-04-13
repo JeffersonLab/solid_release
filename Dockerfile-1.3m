@@ -1,0 +1,215 @@
+# JLab Common Environment (CE) docker image
+#
+# The docker image includes both a noVNC-webserver
+# and VNC-server that can be used to view graphics on the host using
+# either a native webrowser (HTML5 enabled) or a native VNC viewer. This
+# includes the ability to view OpenGL graphics.
+#
+# The graphics support was originally inspired by the Docker-opengl project
+# here:
+#
+# https://github.com/thewtex/docker-opengl
+#
+# In the end, the only thing used from that was the idea to use
+# noVNC. Thus, we do not include their license. However, I (David L.) do want to give
+# them credit for inspiring this work.
+#
+# The container should be run with the "-p 6080:6080" option to allow
+# outside connections to see the webserver. To connect to the VNC
+# server directly, you should add the "-p 5900:5900" option. (Both
+# can be included if you like.) Once inside the container, run "xstart"
+# to fire up the servers. Then follow the directions for connecting.
+#
+# This Dockerfile is written by:
+#
+# David Lawrence
+# Maurizio Ungaro
+# Zhiwen Zhao (made it bsaed on Dockerfile-2.3)
+#
+# Instructions:
+#
+#--------------------------------------------------------------------------
+#
+# Remember to find/replace the JLAB_VERSION with the newest one
+#
+# To build and push the container:
+#
+# docker build -f Dockerfile-1.3m -t jlabce:1.3m .
+#
+# docker tag jlabce:1.3m jeffersonlab/jlabce:1.3m
+#
+# docker push jeffersonlab/jlabce:1.3m
+#
+#--------------------------------------------------------------------------
+#
+# To run in batch mode:
+#
+#  docker run -it --rm jeffersonlab/jlabce:1.3m bash
+#
+# To use vnc or noVNC:
+#
+#   docker run -it --rm -p 6080:6080 -p 5901:5901 jeffersonlab/jlabce:1.3m
+#
+# On a mac, if you allow access from localhost with:
+#
+#  1. Activate the option ‘Allow connections from network clients’ in XQuartz settings (Restart XQuartz (to activate the setting)
+#  2. xhost +127.0.0.1
+#
+# Then you can run docker and use the local X server with:
+#
+#  docker run-it --rm -e DISPLAY=docker.for.mac.localhost:0 jeffersonlab/jlabce:1.3m bash
+#
+#--------------------------------------------------------------------------
+
+FROM centos:7.5.1804
+LABEL maintainer "Maurizio Ungaro <ungaro@jlab.org>"
+
+# Add enterprise linux repositories
+RUN yum install -y epel-release
+
+# Add graphics support
+# mailcap needed for the novnc icons
+RUN yum install -y \
+	tigervnc-server \
+	xfce4-session \
+	xfce4-panel \
+	xfce4-terminal \
+	xfwm4 \
+	mailcap \
+	ghostscript-fonts \
+	net-tools \
+	glx-utils \
+	python-websockify \
+	xterm \
+	nedit \
+	git \
+	&& yum clean all \
+	&& rm -rf /var/cache/yum \
+	&& git clone https://github.com/kanaka/noVNC.git /opt/noVNC \
+	&& cd /opt/noVNC \
+	&& ln -s vnc.html index.html \
+	&& mkdir -p /container/utilities
+
+# These define an alias and a script for easily starting up the
+# servers from either bash or tcsh.
+COPY xstart_alias.sh /etc/profile.d
+COPY xstart_alias.csh /etc/profile.d
+COPY xstart.sh /container/utilities
+COPY xstart.csh /container/utilities
+COPY xstop /usr/bin
+ADD dot_config /root/.config
+#
+EXPOSE 6080 5900
+#
+#--------------------------------------------------------------------------
+# JLab CE (Common Environment)
+#
+RUN yum install -y \
+	cmake3 \
+	make \
+	scons \
+	gcc-c++ \
+	mariadb \
+	mariadb-devel \
+	python-devel \
+	libX11-devel \
+	mesa-libGLU-devel \
+	libXt-devel \
+	libXmu-devel \
+	libXrender-devel \
+	libXpm-devel \
+	libXft-devel \
+	expat-devel \
+	bzip2 \
+	qt5-qtbase-devel \
+	qt5-linguist \
+	wget \
+	nano \
+	which \
+	tcsh \
+	psmisc \
+	tigervnc \
+	subversion \
+	cmake \
+	perl-DBD-MySQL \
+	file \
+	&& yum clean all \
+	&& rm -rf /var/cache/yum \	
+	&& ln -s /usr/bin/cmake3 /usr/local/bin/cmake
+
+#RUN   rpm -i https://rpmfind.net/linux/dag/redhat/el6/en/x86_64/dag/RPMS/perl-Math-MatrixReal-2.05-1.el6.rf.noarch.rpm \
+#      && rpm -i https://rpmfind.net/linux/dag/redhat/el6/en/x86_64/dag/RPMS/perl-Math-VectorReal-1.02-1.2.el6.rf.x86_64.rpm	
+
+RUN  wget --no-check-certificate https://rpmfind.net/linux/dag/redhat/el6/en/x86_64/dag/RPMS/perl-Math-MatrixReal-2.05-1.el6.rf.noarch.rpm \
+    && wget --no-check-certificate https://rpmfind.net/linux/dag/redhat/el6/en/x86_64/dag/RPMS/perl-Math-VectorReal-1.02-1.2.el6.rf.x86_64.rpm \
+    && rpm -i perl-Math-MatrixReal-2.05-1.el6.rf.noarch.rpm perl-Math-VectorReal-1.02-1.2.el6.rf.x86_64.rpm \
+    && rm -f *.rpm
+	
+ADD Dockerfile* /container/image/jlabce/
+ADD xstart.csh /container/image/jlabce
+ADD xstart.sh /container/image/jlabce
+ADD xstart_alias.csh /container/image/jlabce
+ADD xstart_alias.sh /container/image/jlabce
+ADD xstop /container/image/jlabce
+ADD README.md /container/image/jlabce
+ADD CHANGES /container/image/jlabce
+ADD dot_config /container/image/jlabce
+
+#WORKDIR $JLAB_ROOT/$JLAB_VERSION/ce
+CMD bash /container/utilities/xstart.sh && sleep infinity
+
+ENV JLAB_ROOT /jlab
+ENV JLAB_VERSION 1.3
+
+# Once the basic image is built by dockerfile, install jlabce component with modification, by hand, mainly because qt installation need graphic
+# for details of modification, refer https://hallaweb.jlab.org/wiki/index.php/Jlab_software_tmp_fix
+tcsh
+#setenv JLAB_ROOT /jlab
+#setenv JLAB_VERSION 1.3
+mkdir -p $JLAB_ROOT
+cd $JLAB_ROOT
+wget http://www.jlab.org/12gev_phys/packages/sources/ceInstall/ceInstall_$JLAB_VERSION.tar.gz
+tar -zxpvf ceInstall_$JLAB_VERSION.tar.gz
+source $JLAB_ROOT/$JLAB_VERSION/ce/jlab.csh
+cd $JLAB_VERSION/install
+./go_qt 
+./qt-opensource-linux-x64-5.3.2.run  (install with grahic interface, install at /jlab/1.3/Linux_CentOS7.5.1804-x86_64-gcc4.8.5/qt/5.3.2 and include "Source Components")
+./go_mysql 
+./go_xercesc
+./go_clhep
+./go_geant4
+./go_sconsscript
+./go_evio
+./go_ccdb
+./go_gemc
+## ***a modified GEMC 2.3 *************
+cd $GEMC/../
+mv 2.3 2.3_old 
+svn co https://jlabsvn.jlab.org/svnroot/solid/solid_gemc2/mod/gemc/2.3
+cd 2.3 
+ln -s api/perl io 
+cd source 
+scons OPT=1 LIBRARY=shared -j8
+cd $JLAB_ROOT/$JLAB_VERSION/install 
+./go_root
+./go_banks
+## ***a modified BANKS 1.2 *************	
+cd $BANKS/../ 
+mv 1.2 1.2_old
+svn co https://jlabsvn.jlab.org/svnroot/solid/solid_gemc2/mod/banks/1.2
+cd 1.2
+scons OPT=1
+#./go_jana
+rm -f $JLAB_ROOT/$JLAB_VERSION/install/qt-opensource-linux-x64-5.3.2.run
+rm -rf $JLAB_SOFTWARE/geant4/*/source
+rm -rf $JLAB_SOFTWARE/root/5.34.34/root/root_v5.34.34.source.tar.gz
+rm -rf $JLAB_SOFTWARE/xercesc/*/xerces-c-*
+rm -rf $JLAB_SOFTWARE/qt/5.3.2/5.3/Src
+rm -rf $JLAB_SOFTWARE/qt/5.3.2/Docs
+rm -rf $JLAB_SOFTWARE/qt/5.3.2/Tools
+rm -rf /tmp/vncnum
+rm -rf ~/.vnc
+rm -f /tmp/.X*-lock
+ln -s $JLAB_ROOT/$JLAB_VERSION/ce/jlab.csh /etc/profile.d
+
+

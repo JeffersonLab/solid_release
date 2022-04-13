@@ -1,0 +1,28 @@
+FROM jeffersonlab/jlabce:2.3
+LABEL maintainer "Zhiwen Zhao <zwzhao@jlab.org>"
+
+RUN rm -f /etc/profile.d/jlab.csh
+RUN rm -f /etc/profile.d/jlab.sh
+
+SHELL ["/bin/tcsh", "-c"]
+
+WORKDIR /solid
+
+RUN 	git clone https://github.com/gemc/source.git  \
+    &&	rm -rf  source/.git \
+    &&  git clone https://github.com/JeffersonLab/solid_gemc.git \
+    &&	rm -rf  solid_gemc/.git \
+    &&	source ${PWD}/solid_gemc/set_solid 2.3 /jlab ${PWD}/solid_gemc \
+    &&  git clone https://github.com/maureeungaro/banks.git \
+    &&  setenv preGEMC ${GEMC} \
+    &&  setenv myGEMC ${PWD}/source \
+    &&  cd $myGEMC \
+    &&  scons OPT=1 LIBRARY=shared -j8 \
+    &&  cd ../ \
+    &&  setenv BANKS ${PWD}/banks \    
+    &&  cd $BANKS \
+    &&  scons OPT=1 -j8 \
+    &&  setenv GEMC ${myGEMC} \
+    &&  cd $SoLID_GEMC/source/devel \
+    &&  scons OPT=1 -j8 \
+    &&  setenv GEMC ${preGEMC}
