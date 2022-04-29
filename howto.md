@@ -59,7 +59,7 @@ To access any jlab internal machine or ifarm with graphic access by vnc, see htt
 
 * ssh -XY ifarm
 (singularity will load your shell env,so clean them up to avoid conflict. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc"  temporally.)
-* module load singularity/3.9.2
+* module load singularity/3.9.5
 * cd your_work_dir  (which will be shared dir between host and container automatically)
 * (general terminal and graphic mode)
   * singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
@@ -73,7 +73,7 @@ To access any jlab internal machine or ifarm with graphic access by vnc, see htt
   * fg          (bring singularity to front in the host)
   * control-c   (exit singularity in the host)
 
-# run software after loading container 
+# run software inside container 
 --------------------
 
 ## run solid_gemc with jeffersonlab/jlabce:2.5
@@ -96,7 +96,7 @@ To access any jlab internal machine or ifarm with graphic access by vnc, see htt
   * setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
   * setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${PATH}
   * cd $SoLID_GEMC/field/
-  * wget https://solid.jlab.org/files/field/solenoid_v3.dat  
+  * wget https://solid.jlab.org/files/field/solenoid_v4.dat (remember to change FIELD_DIR to ../field in gcard)
   * cd $SoLID_GEMC/source/${GEMC_VERSION}
   * make change to code
   * scons OPT=1 -j4
