@@ -95,12 +95,11 @@ To access any jlab internal machine or ifarm with graphic access by vnc, see htt
   * setenv SoLID_GEMC $PWD/solid_gemc
   * setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
   * setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${PATH}
-  * cd $SoLID_GEMC/field/
-  * wget https://solid.jlab.org/files/field/solenoid_v4.dat (remember to change FIELD_DIR to ../field in gcard)
+  * cd $SoLID_GEMC/field/ && wget https://solid.jlab.org/files/field/solenoid_v4.dat (do this if you are not on ifarm, remember to change FIELD_DIR to ../field in gcard)
   * cd $SoLID_GEMC/source/${GEMC_VERSION}
   * make change to code
   * scons OPT=1 -j4
-* (run solid_gemc with 3D field map) 
+* (run solid_gemc in graphic mode) 
   * cd $SoLID_GEMC/script
   * solid_gemc solid_SIDIS_He3_moved_full.gcard
   * solid_gemc solid_PVDIS_LD2_moved_full.gcard
