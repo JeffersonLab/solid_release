@@ -1,6 +1,9 @@
+
+The top level location on ifarm is /scigroup/cvmfs/halla/solid/soft, which is auto synced on OSG at /cvmfs/oasis.opensciencegrid.org/jlab/halla/solid/soft/
+
 The container file is at "container/jeffersonlab_solidevgen_\*.sif"
 
-The event generators built on the container are installed at "solidevgen_*/*"
+The event generators built on the container are installed at "solidevgen_\*/\*"
 
 here are instructions of running and compiling them on ifarm (not yet on OSG)
 
