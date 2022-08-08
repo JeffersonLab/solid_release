@@ -79,9 +79,9 @@ To access any jlab internal machine or ifarm with graphic access by vnc, see htt
 ## run solid_gemc with jeffersonlab/jlabce:2.5
 
 * cd your working dir on host which will be bound into container automatically
-*  if you are on ifarm, run this
+* if you are on ifarm, run this
   * module load singularity/3.9.5
-*  load container by
+* load container by
   * singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
 * (now you are in container, run following commands inside)
   * echo $SHELL      (check if you using tcsh, if not, run tcsh)
