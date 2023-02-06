@@ -1,74 +1,76 @@
-# quickstart
+# Introduction
 --------------------
-here is a quickstart run run official solid_gemc software on jlab ifarm
+we run [solid_gemc](https://github.com/JeffersonLab/solid_gemc) using container and singularity/apptainer. Currently we install solid_gemc outside the container  [jeffersonlab/jlabce](https://hub.docker.com/r/jeffersonlab/jlabce/tags/) which has gemc and geant4 inside
+
+The best way to run it is on jlab ifarm machines. you can run it in batch mode to produce files and submit farm jobs or with graphic mode (refer to  https://hallaweb.jlab.org/wiki/index.php/Ifarm_graphic_mode)
+
+# run solid_gemc with graphic mode 
+--------------------
+on ifarm, you can run the official solid_gemc installation without modification or run your customized installation to do develpment work
+
+here is a quick way to run official solid_gemc installation
 ```
  ssh -XY ifarm
- cd your working dir on host which will be bound into container automatically
  module load singularity/3.9.5
+ (singularity will load your shell env,so clean them up to avoid conflict before  load container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc"  temporally)
  singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
  (now you are in container, run following commands inside)
-   echo $SHELL      (check if you using tcsh, if not, run tcsh)
-   set prompt = '[#Container# %n@%m %c]$ ' (change shell promt to better tell where you are)
-  * setenv SoLID_GEMC /group/solid/solid_github/JeffersonLab/solid_gemc
-  * setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
-  * setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${PATH}
-  * cd $SoLID_GEMC/script
-  * solid_gemc solid_SIDIS_He3_moved_full.gcard
-  * solid_gemc solid_PVDIS_LD2_moved_full.gcard
+   set prompt = '[#Container# %n@%m %c]$ '
+   setenv SoLID_GEMC /group/solid/solid_github/JeffersonLab/solid_gemc
+   setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
+   setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${PATH}
+   cd $SoLID_GEMC/script
+   solid_gemc solid_SIDIS_He3_moved_full.gcard
+   solid_gemc solid_PVDIS_LD2_moved_full.gcard
+   ctrl-d (to exit container)
 ```
 
-# run solid_gemc with jeffersonlab/jlabce:2.5
---------------------
-* cd your working dir on host which will be bound into container automatically
-* if you are on ifarm, run this
-  * module load singularity/3.9.5
-* load container by
-  * singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
+here are more details how to run your customized installation
+
+* ssh -XY ifarm  (use XY to enable Xwindow forwarding)
+* cd your_work_dir  (which will be shared dir between host and container automatically)
+* module load singularity/3.9.5 
+* (singularity will load your shell env,so clean them up to avoid conflict before load container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc"  temporally)
+* singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
 * (now you are in container, run following commands inside)
   * echo $SHELL      (check if you using tcsh, if not, run tcsh)
   * set prompt = '[#Container# %n@%m %c]$ ' (change shell promt to better tell where you are)
-* (do this if you are at jlab machine and want to run precompiled solid_gemc)
-  * setenv SoLID_GEMC /group/solid/solid_github/JeffersonLab/solid_gemc
-  * setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
-  * setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${PATH}
+* (do this if you want to run official solid_gemc)
+```
+  setenv SoLID_GEMC /group/solid/solid_github/JeffersonLab/solid_gemc
+  setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
+  setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${PATH}
+```  
 * (do this if you want to compile and run solid_gemc yourself)
-  * git clone https://github.com/JeffersonLab/solid_gemc   (or just git pull to update it)
-  * setenv SoLID_GEMC $PWD/solid_gemc
-  * setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
-  * setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${PATH}
-  * cd $SoLID_GEMC/field/ && wget https://solid.jlab.org/files/field/solenoid_v4.dat (do this if you are not on ifarm, remember to change FIELD_DIR to ../field in gcard)
-  * cd $SoLID_GEMC/source/${GEMC_VERSION}
-  * make change to code
-  * scons OPT=1 -j4
-* (run solid_gemc in graphic mode) 
+```
+  git clone https://github.com/JeffersonLab/solid_gemc   (or just git pull to update it)
+  setenv SoLID_GEMC $PWD/solid_gemc
+  setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
+  setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${PATH}
+  cd $SoLID_GEMC/source/${GEMC_VERSION}
+  make change to code
+  scons OPT=1 -j4
+```
+* (run solid_gemc in graphic mode. if you are not on ifarm or any machine with access to /group/solid/www/solid/html/files/field, remember to wget https://solid.jlab.org/files/field/solenoid_v4.dat and change FIELD_DIR to gcard file)
   * cd $SoLID_GEMC/script
   * solid_gemc solid_SIDIS_He3_moved_full.gcard
   * solid_gemc solid_PVDIS_LD2_moved_full.gcard
+  * ctrl-d (to exit container)
 
-# run farm jobs with container 
+# run solid_gemc with batch mode and farm jobs
 --------------------
 see examples at https://github.com/JeffersonLab/solid_gemc/tree/master/script/farm
 
-
-# load container
+# more information about using container 
 --------------------
-The example below is on jlab ifarm, farm, or any jlab internal machine with direct access to /group/solid/apps/
 
-* on jlab ifarm, prepare singularity by "module load singularity/3.9.5"
- 
-* on your local centos/rhel/scientific linux, prepare singularity by "yum install singularity" or "yum install apptainer"
+You may also run it at your local machine even though this is not the recommended way. 
 
-To access any jlab internal machine or ifarm with graphic access by vnc, see https://hallaweb.jlab.org/wiki/index.php/Ifarm_graphic_mode
+* on your local centos/rhel/scientific linux, prepare singularity by "yum install singularity" or "yum install apptainer apptainer-suid". on Ubuntu, use apt. on windows or Mac, using docker may be easier than use singularity/apptainer in a linux vritual machine. refer to https://hallaweb.jlab.org/wiki/index.php/Note_about_container
+* If your linux machine is a desktop at jlab, you can self-mount or ask computer center to help you to mount /group/solid/, then you can just use it like ifarm
+* If your linux machine is outside jlab, you can download singularity container images by "scp your_jlab_username@ftp.jlab.org:/group/solid/apps/[singularity_container_filename] ./"
 
-* ssh -XY ifarm
-(singularity will load your shell env,so clean them up to avoid conflict. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc"  temporally.)
-* module load singularity/3.9.5
-* cd your_work_dir  (which will be shared dir between host and container automatically)
-* (general terminal and graphic mode)
-  * singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
-  * run code inside container
-  * control-d   
-* (better graphic mode)
+The native graphic mode is inside container, you can use vnc to access as follows
   * singularity run /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif &   (load for graphic mode in background)
   * vncviewer localhost:5901  (access for graphic mode, use the right port as shown in terminal)
   * run code inside container in vncviewer
@@ -78,9 +80,6 @@ To access any jlab internal machine or ifarm with graphic access by vnc, see htt
 
 # container list
 --------------------
-singularity container is the standard way of running solid software. 
-
-we run solid_gemc outside of container [jeffersonlab/jlabce](https://hub.docker.com/r/jeffersonlab/jlabce/tags/)
 
 on jlab machines, singularity container images are under /group/solid/apps/ and the list are:
 * latest
@@ -92,8 +91,6 @@ on jlab machines, singularity container images are under /group/solid/apps/ and 
 which is based on container [jeffersonlab/jlabce:1.3m](https://hub.docker.com/r/jeffersonlab/jlabce/tags/1.3m) including jlab_version 1.3m with gemc 2.3m)
   * jeffersonlab_solid_tag1.devel_s3.2.1.sif (like solid_tag1.0.0, but provide base package only and test other packages outside of contianer)
   * jeffersonlab_solid_tag2.devel_s3.2.1.sif (more test with base package only)
-
-On your local machine, you can dowload container images by "scp your_jlab_username@ftp.jlab.org:/group/solid/apps/[singularity_container_filename] ./"
 
 They are created by pulling from docker container on jlab ifarm with the following command
 * module load singularity/3.9.5
