@@ -16,6 +16,7 @@ here are instructions of running and compiling them on ifarm (not yet on OSG)
   * singularity exec -B $location/halla/solid/soft/solidevgen_tag1:/evgen $location/container/jeffersonlab_solidevgen_tag1_latest.sif /evgen/evgen_inclusive/run commit517d0c6_20220527
 * run evgen_inclusive_e
   * singularity exec -B $location/halla/solid/soft/solidevgen_tag1:/evgen $location/container/jeffersonlab_solidevgen_tag1_latest.sif /evgen/evgen_inclusive_e/run commit6fc41a0_20220525
+  * singularity exec -B $location/halla/solid/soft/solidevgen_tag1:/evgen $location/container/jeffersonlab_solidevgen_tag1_latest.sif /evgen/evgen_bggen/run commite04ff27_20220405
 * more detailed examples running farm job, refer to https://github.com/JeffersonLab/solid_gemc/tree/master/script/farm
 
 # compile a generator on ifarm
