@@ -10,9 +10,10 @@ on ifarm, you can run the official solid_gemc installation without modification 
 
 here is a quick way to run official solid_gemc installation
 ```
+ (singularity will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
  ssh -XY ifarm
+ source /site/env/syscshrc
  module load singularity/3.9.5
- (singularity will load your shell env,so clean them up to avoid conflict before  load container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc"  temporally)
  singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
  (now you are in container, run following commands inside)
    set prompt = '[#Container# %n@%m %c]$ '
@@ -27,10 +28,11 @@ here is a quick way to run official solid_gemc installation
 
 here are more details how to run your customized installation
 
+* (singularity will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
 * ssh -XY ifarm  (use XY to enable Xwindow forwarding)
 * cd your_work_dir  (which will be shared dir between host and container automatically)
+* source /site/env/syscshrc
 * module load singularity/3.9.5 
-* (singularity will load your shell env,so clean them up to avoid conflict before load container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc"  temporally)
 * singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
 * (now you are in container, run following commands inside)
   * echo $SHELL      (check if you using tcsh, if not, run tcsh)
