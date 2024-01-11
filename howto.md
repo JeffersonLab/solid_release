@@ -17,6 +17,7 @@ here is a quick way to run official solid_gemc installation
  singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
  (now you are in container, run following commands inside)
    set prompt = '[#Container# %n@%m %c]$ '
+   setenv GEMC /group/solid/apps/gemc/2.9
    setenv SoLID_GEMC /group/solid/solid_github/JeffersonLab/solid_gemc
    setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
    setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${PATH}
@@ -39,12 +40,14 @@ here are more details how to run your customized installation
   * set prompt = '[#Container# %n@%m %c]$ ' (change shell promt to better tell where you are)
 * (do this if you want to run official solid_gemc)
 ```
+  setenv GEMC /group/solid/apps/gemc/2.9
   setenv SoLID_GEMC /group/solid/solid_github/JeffersonLab/solid_gemc
   setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
   setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${PATH}
 ```  
 * (do this if you want to compile and run solid_gemc yourself)
 ```
+  setenv GEMC /group/solid/apps/gemc/2.9
   git clone https://github.com/JeffersonLab/solid_gemc   (or just git pull to update it)
   setenv SoLID_GEMC $PWD/solid_gemc
   setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
