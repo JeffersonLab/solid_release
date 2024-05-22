@@ -11,10 +11,8 @@ on ifarm, you can run the official solid_gemc installation without modification 
 here is a quick way to run official solid_gemc installation
 ```
  (singularity will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
- ssh -XY ifarm
- source /site/env/syscshrc
- module load singularity/3.9.5
- singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
+ ssh -XY ifarm9
+ singularity shell -s /bin/tcsh -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
  (now you are in container, run following commands inside)
    set prompt = '[#Container# %n@%m %c]$ '
    setenv GEMC /group/solid/apps/gemc/2.9
@@ -30,11 +28,11 @@ here is a quick way to run official solid_gemc installation
 here are more details how to run your customized installation
 
 * (singularity will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
-* ssh -XY ifarm  (use XY to enable Xwindow forwarding)
+* ssh -XY ifarm9  (use XY to enable Xwindow forwarding)
 * cd your_work_dir  (which will be shared dir between host and container automatically)
 * source /site/env/syscshrc
 * module load singularity/3.9.5 
-* singularity shell -s /bin/tcsh /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
+* singularity shell -s /bin/tcsh -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
 * (now you are in container, run following commands inside)
   * echo $SHELL      (check if you using tcsh, if not, run tcsh)
   * set prompt = '[#Container# %n@%m %c]$ ' (change shell promt to better tell where you are)
@@ -71,7 +69,7 @@ see examples at https://github.com/JeffersonLab/solid_gemc/tree/master/script/fa
 
 You may also run it at your local machine even though this is not the recommended way. 
 
-* on your local centos/rhel/scientific linux, prepare singularity by "yum install singularity" or "yum install apptainer apptainer-suid". on Ubuntu, use apt. on windows or Mac, using docker may be easier than use singularity/apptainer in a linux vritual machine. refer to https://hallaweb.jlab.org/wiki/index.php/Note_about_container
+* on your local centos/rhel/scientific linux, prepare singularity by "yum install singularity" or "yum install apptainer". on Ubuntu, use apt. on windows or Mac, using docker may be easier than use singularity/apptainer in a linux vritual machine. refer to https://hallaweb.jlab.org/wiki/index.php/Note_about_container
 * If your linux machine is a desktop at jlab, you can self-mount or ask computer center to help you to mount /group/solid/, then you can just use it like ifarm
 * If your linux machine is outside jlab, you can download singularity container images by "scp your_jlab_username@ftp.jlab.org:/group/solid/apps/[singularity_container_filename] ./"
 
