@@ -18,7 +18,7 @@ here is a quick way to run official solid_gemc installation on ifarm
    setenv SoLID_GEMC /group/solid/solid_github/JeffersonLab/solid_gemc
    setenv GEMC $SoLID_GEMC/mod/gemc/$GEMC_VERSION
    setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
-   setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${PATH}
+   setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${GEMC}:${PATH}
    cd $SoLID_GEMC/script
    solid_gemc solid_SIDIS_He3_moved_full.gcard
    solid_gemc solid_PVDIS_LD2_moved_full.gcard
@@ -31,8 +31,8 @@ here are more details about how to run your customized installation on any machi
 ```  
   (singularity will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
   cd your_work_dir  (which will be shared dir between host and container)
-  wget http://webhome.phy.duke.edu/~zz81/simg/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif (no need to download the field map on ifarm)  
-  singularity shell -s /bin/tcsh -B ${PWD}:/mywork jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif  (add option " -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre" on ifarm)
+  wget http://webhome.phy.duke.edu/~zz81/simg/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif (on ifarm, no need to download the container)  
+  singularity shell -s /bin/tcsh -B ${PWD}:/mywork jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif  (on ifarm, add option " -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre")
   (now you are in container, run following commands inside)
   echo $SHELL      (check if you using tcsh, if not, run tcsh)
   set prompt = '[#Container# %n@%m %c]$ ' (change shell promt to better tell where you are)
@@ -47,9 +47,9 @@ here are more details about how to run your customized installation on any machi
   cd $SoLID_GEMC/source/${GEMC_VERSION}
   (make change to code if needed)
   scons OPT=1 -j4
-  setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${PATH}
+  setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${GEMC}:${PATH}
   cd  $SoLID_GEMC/field
-  wget https://solid.jlab.org/files/field/solenoid_v4.dat (no need to download the field map on ifarm)
+  wget https://solid.jlab.org/files/field/solenoid_v4.dat (on ifarm, no need to download the field map)
   cd $SoLID_GEMC/script
   (if not on ifarm, modify gcard files to change FIELD_DIR to /mywork/solid_gemc/field before running solid_gemc in graphic mode as follows)
   solid_gemc solid_SIDIS_He3_moved_full.gcard
