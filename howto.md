@@ -34,9 +34,9 @@ here are more details about how to run your customized installation on any machi
   wget http://webhome.phy.duke.edu/~zz81/simg/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif (no need to download the field map on ifarm)  
   singularity shell -s /bin/tcsh -B ${PWD}:/mywork jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif  (add option " -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre" on ifarm)
   (now you are in container, run following commands inside)
-  * echo $SHELL      (check if you using tcsh, if not, run tcsh)
-  * set prompt = '[#Container# %n@%m %c]$ ' (change shell promt to better tell where you are)
-  * cd /mywork
+  echo $SHELL      (check if you using tcsh, if not, run tcsh)
+  set prompt = '[#Container# %n@%m %c]$ ' (change shell promt to better tell where you are)
+  cd /mywork
   (then you can compile and solid_gemc)
   git clone https://github.com/JeffersonLab/solid_gemc   (or just git pull to update it)
   setenv SoLID_GEMC $PWD/solid_gemc
