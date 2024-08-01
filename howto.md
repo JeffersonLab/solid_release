@@ -11,7 +11,8 @@ on ifarm or a jlab machine with access to /group/solid, you can run the official
 here is a quick way to run official solid_gemc installation on ifarm
 ```
  (singularity will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
- ssh -XY ifarm9
+ ssh -XY ifarm
+ cd your_work_dir  (which will be shared dir between host and container)
  singularity shell -s /bin/tcsh -B ${PWD}:/mywork -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
  (now you are in container, run following commands inside)
    set prompt = '[#Container# %n@%m %c]$ '
@@ -25,14 +26,15 @@ here is a quick way to run official solid_gemc installation on ifarm
    ctrl-d (to exit container)
 ```
 
-here are more details about how to run your customized installation on any machine
-(The preferred way is to do this on ifarm, then you can use the container at /group/solid/apps and field file at /group/solid/www/solid/html/files/field without dowdnloading them. But it works on any machine after downloading)
+here are more details about how to run your customized installation on ifarm (this is preferred) or any other machine without access to /group/solid
 
 ```  
   (singularity will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
-  cd your_work_dir  (which will be shared dir between host and container)
-  wget http://webhome.phy.duke.edu/~zz81/simg/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif (on ifarm, no need to download the container)  
-  singularity shell -s /bin/tcsh -B ${PWD}:/mywork jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif  (on ifarm, add option " -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre")
+ssh -XY ifarm
+cd your_work_dir  (which will be shared dir between host and container)
+(do this on ifarm) singularity shell -s /bin/tcsh -B ${PWD}:/mywork -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
+(do this on any other machine with apptainer) wget http://webhome.phy.duke.edu/~zz81/simg/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif 
+(do this on any other machine with apptainer) singularity shell -s /bin/tcsh -B ${PWD}:/mywork jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
   (now you are in container, run following commands inside)
   echo $SHELL      (check if you using tcsh, if not, run tcsh)
   set prompt = '[#Container# %n@%m %c]$ ' (change shell promt to better tell where you are)
@@ -48,10 +50,11 @@ here are more details about how to run your customized installation on any machi
   (make change to code if needed)
   scons OPT=1 -j4
   setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${GEMC}:${PATH}
-  cd  $SoLID_GEMC/field
-  wget https://solid.jlab.org/files/field/solenoid_v4.dat (on ifarm, no need to download the field map)
+  (do this on any other machine) cd  $SoLID_GEMC/field
+  (do this on any other machine) wget https://solid.jlab.org/files/field/solenoid_v4.dat
   cd $SoLID_GEMC/script
-  (if not on ifarm, modify gcard files to change FIELD_DIR to /mywork/solid_gemc/field before running solid_gemc in graphic mode as follows)
+  (on any other machine, modify gcard files to change FIELD_DIR to /mywork/solid_gemc/field)
+  (running solid_gemc in graphic mode as follows)
   solid_gemc solid_SIDIS_He3_moved_full.gcard
   solid_gemc solid_PVDIS_LD2_moved_full.gcard
   ctrl-d (to exit container)
