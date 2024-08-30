@@ -7,7 +7,7 @@ The event generators built on the container are installed at "solidevgen_\*/\*"
 
 here are instructions of running and compiling them on ifarm (running on OSG will come later)
 
-# run generators on ifarm9
+# run generators on ifarm
 --------------------
 * cd your_work_dir
 * setenv location /scigroup/cvmfs/halla/solid/soft (on ifarm)
@@ -19,7 +19,7 @@ here are instructions of running and compiling them on ifarm (running on OSG wil
   * singularity exec -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre -B $location/solidevgen_tag1:/evgen $location/container/jeffersonlab_solidevgen_tag1_latest.sif /evgen/evgen_bggen/run commite04ff27_20220405
 * more detailed examples running farm job, refer to https://github.com/JeffersonLab/solid_gemc/tree/master/script/farm
 * use "shell -s /bin/tcsh" instead of "exec" to run them interactively
-* copy and modify "run" files to customize your input files
+* copy and modify "$location/solidevgen_tag1/*/run" to customize your input files
 
 # compile generators on ifarm9
 --------------------
