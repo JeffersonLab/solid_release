@@ -2,13 +2,15 @@
 --------------------
 we run [solid_gemc](https://github.com/JeffersonLab/solid_gemc) using container and singularity/apptainer. Currently we install solid_gemc outside the container  [jeffersonlab/jlabce](https://hub.docker.com/r/jeffersonlab/jlabce/tags/) which has gemc and geant4 inside
 
-The best way to run it is on jlab ifarm machines. you can run it in batch mode to produce files and submit farm jobs or with graphic mode (refer to  https://hallaweb.jlab.org/wiki/index.php/Ifarm_graphic_mode)
+Because we running on the code in container, it doesn't really matter which machine to run it. but practically it still depends on existing files on disks. So henceforth, I **refer "ifarm" to jlab ifarm machines and any machine with access to /group/solid and refer "standalone machine" to any machine without access to /group/solid**
+
+The best way to run it is on jlab ifarm. you can run it in batch mode to produce files and submit farm jobs or with graphic mode. (The best way to run graphoc is through vnc, refer to  https://hallaweb.jlab.org/wiki/index.php/Ifarm_graphic_mode)
 
 # run solid_gemc with graphic mode 
 --------------------
-on ifarm or a jlab machine with access to /group/solid, you can run the official solid_gemc installation without modification or run your customized installation to do develpment work
+According to your need, you can run it to look at existing simulation or modifiy to do develpment work as follows
 
-here is a quick way to run official solid_gemc installation on ifarm
+here is a quick way to **run official solid_gemc installation on ifarm**
 ```
  (singularity will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
  ssh -XY ifarm
@@ -26,8 +28,28 @@ here is a quick way to run official solid_gemc installation on ifarm
    ctrl-d (to exit container)
 ```
 
-here are more details about how to run your customized installation on ifarm (this is preferred) or any other machine without access to /group/solid
+To run your simulaton with modified geometry and without changing hit processing, here is how to **run official solid_gemc binary with your installation on ifarm**
+```
+ (singularity will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
+ ssh -XY ifarm
+ cd your_work_dir  (which will be shared dir between host and container)
+ singularity shell -s /bin/tcsh -B ${PWD}:/mywork -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
+ (now you are in container, run following commands inside)
+   set prompt = '[#Container# %n@%m %c]$ '
+   setenv SoLID_GEMC /group/solid/solid_github/JeffersonLab/solid_gemc
+   setenv GEMC $SoLID_GEMC/mod/gemc/$GEMC_VERSION
+   setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
+   setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${GEMC}:${PATH}
+   cd /mywork
+   git clone https://github.com/JeffersonLab/solid_gemc   (or just git pull to update it)
+   (then you can modify simulation in your installation and run it as follows)
+   cd solid_gemc/script
+   solid_gemc solid_SIDIS_He3_moved_full.gcard
+   solid_gemc solid_PVDIS_LD2_moved_full.gcard
+   ctrl-d (to exit container)
+```
 
+To run your simulaton with modified geometry and changing hit processing, here is how to **run your solid_gemc binary with your installation on ifarm and standalone machine**
 ```  
   (singularity will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
 ssh -XY ifarm
