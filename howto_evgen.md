@@ -5,21 +5,28 @@ The container file is at "container/jeffersonlab_solidevgen_\*.sif"
 
 The event generators built on the container are installed at "solidevgen_\*/\*"
 
+some output are at /work/halla/solid/evgen/
+
 here are instructions of running and compiling them on ifarm (running on OSG will come later)
 
 # run generators on ifarm
 --------------------
-* cd your_work_dir
-* setenv location /scigroup/cvmfs/halla/solid/soft (on ifarm)
-* run evgen_inclusive
-  * singularity exec -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre -B $location/solidevgen_tag1:/evgen $location/container/jeffersonlab_solidevgen_tag1_latest.sif /evgen/evgen_inclusive/run commit517d0c6_20220527
-* run evgen_inclusive_e
-  * singularity exec -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre -B $location/solidevgen_tag1:/evgen $location/container/jeffersonlab_solidevgen_tag1_latest.sif /evgen/evgen_inclusive_e/run commit0acacfe_20230908
-* run evgen_bggen
-  * singularity exec -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre -B $location/solidevgen_tag1:/evgen $location/container/jeffersonlab_solidevgen_tag1_latest.sif /evgen/evgen_bggen/run commite04ff27_20220405
-* more detailed examples running farm job, refer to https://github.com/JeffersonLab/solid_gemc/tree/master/script/farm
+* cd your_work_dir on ifarm
+* setenv location /scigroup/cvmfs/halla/solid/soft
+* (pick one paris of setting below)
+  * setenv theevgen evgen_inclusive_e
+  * setenv theversion commit0acacfe_20230908
+  * setenv theevgen evgen_inclusive
+  * setenv theversion commit517d0c6_20220527
+  * setenv theevgen evgen_bggen
+  * setenv theversion commite04ff27_20220405
+* (run it with an existing input file as a test)
+  * singularity exec -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre -B $location/solidevgen_tag1:/evgen $location/container/jeffersonlab_solidevgen_tag1_latest.sif /evgen/$theevgen/run $theversion
+* (run it with your existing input file) 
+  * cp $location/solidevgen_tag1/$theevgen/run ./ and modify it
+  * singularity exec -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre -B $location/solidevgen_tag1:/evgen $location/container/jeffersonlab_solidevgen_tag1_latest.sif ./run $theversion
 * use "shell -s /bin/tcsh" instead of "exec" to run them interactively
-* copy and modify "$location/solidevgen_tag1/*/run" to customize your input files
+* more detailed examples running farm job, refer to https://github.com/JeffersonLab/solid_gemc/tree/master/script/farm
 
 # compile generators on ifarm9
 --------------------
@@ -27,18 +34,18 @@ here are instructions of running and compiling them on ifarm (running on OSG wil
 * setenv location /scigroup/cvmfs/halla/solid/soft
 * singularity shell -s /bin/tcsh -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre -B ${PWD}:/evgen $location/container/jeffersonlab_solidevgen_tag1_latest.sif
 * set prompt = '[#Container# %n@%m %c]$ '
+* compile evgen_inclusive_e
+  * cd /evgen/evgen_inclusive_e
+  * source setup
+  * git clone https://github.com/JeffersonLab/evgen_inclusive_e commit0acacfe_20230908 (check commit number and time on github first)
+  * cd commit0acacfe_20230908
+  * cmake3 .
+  * make
 * compile evgen_inclusive
   * cd /evgen/evgen_inclusive
   * source setup 
   * git clone https://github.com/JeffersonLab/evgen_inclusive commit517d0c6_20220527 (check commit number  and time on github first)
   * cd commit517d0c6_20220527
-  * make
-* compile evgen_inclusive_e
-  * cd /evgen/evgen_inclusive_e
-  * source setup
-  * git clone https://github.com/JeffersonLab/evgen_inclusive_e commit6fc41a0_20220525 (check commit number and time on github first)
-  * cd commit6fc41a0_20220525
-  * cmake3 .
   * make
 * compile evgen_bggen
   * cd /evgen/evgen_bggen
