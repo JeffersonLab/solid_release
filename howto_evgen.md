@@ -1,5 +1,6 @@
+here are instructions of running and compiling them using container at jlab ifarm (running on OSG will come later)
 
-The top level location on ifarm is /scigroup/cvmfs/halla/solid/soft, which is auto synced on OSG at /cvmfs/oasis.opensciencegrid.org/jlab/halla/solid/soft/
+The top level location is /scigroup/cvmfs/halla/solid/soft, which is auto synced on OSG at /cvmfs/oasis.opensciencegrid.org/jlab/halla/solid/soft/
 
 The container file is at "container/jeffersonlab_solidevgen_\*.sif"
 
@@ -7,7 +8,7 @@ The event generators built on the container are installed at "solidevgen_\*/\*"
 
 some output are at /work/halla/solid/evgen/
 
-here are instructions of running and compiling them on ifarm (running on OSG will come later)
+jlab ifarm has been upgraded to Almalinux9 as of 2025
 
 # run generators on ifarm
 --------------------
@@ -31,7 +32,7 @@ here are instructions of running and compiling them on ifarm (running on OSG wil
 * use "shell -s /bin/tcsh" instead of "exec" to run them interactively
 * more detailed examples running farm job, refer to https://github.com/JeffersonLab/solid_gemc/tree/master/script/farm
 
-# compile generators on ifarm9
+# compile generators on ifarm
 --------------------
 * setenv location /scigroup/cvmfs/halla/solid/soft
 * setenv container solidevgen_tag1
