@@ -10,7 +10,7 @@ some output are at /work/halla/solid/evgen/
 
 jlab ifarm has been upgraded to Almalinux9 as of 2025
 
-# run generators on ifarm
+# run generators in container on ifarm
 --------------------
 * cd your_work_dir on ifarm
 * setenv location /scigroup/cvmfs/halla/solid/soft
@@ -18,7 +18,7 @@ jlab ifarm has been upgraded to Almalinux9 as of 2025
 * setenv evgenpath $location/$container
 * (pick one paris of setting below)
   * setenv theevgen evgen_inclusive_e
-  * setenv theversion commit0acacfe_20230908
+  * setenv theversion commit0a256eb_20250521
   * setenv theevgen evgen_inclusive
   * setenv theversion commit517d0c6_20220527
   * setenv theevgen evgen_bggen
@@ -32,7 +32,7 @@ jlab ifarm has been upgraded to Almalinux9 as of 2025
 * use "shell -s /bin/tcsh" instead of "exec" to run them interactively
 * more detailed examples running farm job, refer to https://github.com/JeffersonLab/solid_gemc/tree/master/script/farm
 
-# compile generators on ifarm
+# compile generators in container on ifarm
 --------------------
 * setenv location /scigroup/cvmfs/halla/solid/soft
 * setenv container solidevgen_tag1
@@ -43,8 +43,8 @@ jlab ifarm has been upgraded to Almalinux9 as of 2025
 * compile evgen_inclusive_e
   * cd /evgen/evgen_inclusive_e
   * source setup
-  * git clone https://github.com/JeffersonLab/evgen_inclusive_e commit0acacfe_20230908 (check commit number and time on github first)
-  * cd commit0acacfe_20230908
+  * git clone https://github.com/JeffersonLab/evgen_inclusive_e commit0a256eb_20250521 (check commit number and time on github first)
+  * cd commit0a256eb_20250521
   * cmake3 .
   * make
 * compile evgen_inclusive
@@ -59,3 +59,8 @@ jlab ifarm has been upgraded to Almalinux9 as of 2025
   * git clone https://github.com/JeffersonLab/evgen_bggen commite04ff27_20220405 (check commit number  and time on github first)
   * cd commite04ff27_20220405
   * make
+
+# compile and run generators in container on any machine
+--------------------
+ if you need to compile and run those generators on a machine with singularity/apptainer but without access to jlab network or cvmfs, you can still use the existing container by downloading it at http://webhome.phy.duke.edu/~zz81/simg/jeffersonlab_solidevgen_tag1_latest.sif
+
