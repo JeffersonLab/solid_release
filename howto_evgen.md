@@ -37,25 +37,22 @@ jlab ifarm has been upgraded to Almalinux9 as of 2025
 * setenv location /scigroup/cvmfs/halla/solid/soft
 * setenv container solidevgen_tag1
 * setenv evgenpath $location/$container
-* cd $evgenpath (this is official location, change it for your personal location)
-* singularity shell -s /bin/tcsh -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre -B ${PWD}:/evgen $location/container/jeffersonlab_solidevgen_tag1_latest.sif
+* cd your_location (this is your dir to compile the generator)
+* singularity shell -s /bin/tcsh -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre -B ${evgenpath}:/evgen $location/container/jeffersonlab_solidevgen_tag1_latest.sif
 * set prompt = '[#Container# %n@%m %c]$ '
 * compile evgen_inclusive_e
-  * cd /evgen/evgen_inclusive_e
-  * source setup
+  * source /evgen/evgen_inclusive_e/setup
   * git clone https://github.com/JeffersonLab/evgen_inclusive_e commit0a256eb_20250521 (check commit number and time on github first)
   * cd commit0a256eb_20250521
   * cmake3 .
   * make
 * compile evgen_inclusive
-  * cd /evgen/evgen_inclusive
-  * source setup 
+  * source /evgen/evgen_inclusive/setup
   * git clone https://github.com/JeffersonLab/evgen_inclusive commit517d0c6_20220527 (check commit number  and time on github first)
   * cd commit517d0c6_20220527
   * make
 * compile evgen_bggen
-  * cd /evgen/evgen_bggen
-  * source setup
+  * source /evgen/evgen_bggen/setup
   * git clone https://github.com/JeffersonLab/evgen_bggen commite04ff27_20220405 (check commit number  and time on github first)
   * cd commite04ff27_20220405
   * make
