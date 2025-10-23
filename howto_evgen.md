@@ -14,8 +14,8 @@ jlab ifarm has been upgraded to Almalinux9 as of 2025
 --------------------
 * cd your_work_dir on ifarm
 * setenv location /scigroup/cvmfs/halla/solid/soft
-* setenv container solidevgen_tag1
-* setenv evgenpath $location/$container
+* setenv code solidevgen_tag1
+* setenv evgenpath $location/$code
 * (pick one paris of setting below)
   * setenv theevgen evgen_inclusive_e
   * setenv theversion commit0a256eb_20250521
@@ -25,18 +25,19 @@ jlab ifarm has been upgraded to Almalinux9 as of 2025
   * setenv theversion commite04ff27_20220405
 * echo $evgenpath/$theevgen/$theversion (this is the final code dir)
 * (run it with an existing input file as a test)
-  * singularity exec -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre -B $location/:/evgen $location/container/jeffersonlab_solidevgen_tag1_latest.sif /evgen/$theevgen/run $theversion
-* (run it with your existing input file) 
-  * cp $location/solidevgen_tag1/$theevgen/run ./ and modify it and copy input file
-  * singularity exec -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre -B $location/:/evgen $location/container/jeffersonlab_solidevgen_tag1_latest.sif ./run $theversion
+  * singularity exec -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre -B ${evgenpath}:/evgen $location/container/jeffersonlab_solidevgen_tag1_latest.sif /evgen/$theevgen/run $theversion
+* (run it with your existing input file)
+  * cp $location/solidevgen_tag1/$theevgen/run ./
+  * understand the run file, copy meeded input file and modify it as needed
+  * singularity exec -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre -B ${evgenpath}:/evgen $location/container/jeffersonlab_solidevgen_tag1_latest.sif ./run $theversion
 * use "shell -s /bin/tcsh" instead of "exec" to run them interactively
 * more detailed examples running farm job, refer to https://github.com/JeffersonLab/solid_gemc/tree/master/script/farm
 
 # compile generators in container on ifarm
 --------------------
 * setenv location /scigroup/cvmfs/halla/solid/soft
-* setenv container solidevgen_tag1
-* setenv evgenpath $location/$container
+* setenv code solidevgen_tag1
+* setenv evgenpath $location/$code
 * cd your_location (this is your dir to compile the generator)
 * singularity shell -s /bin/tcsh -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre -B ${evgenpath}:/evgen $location/container/jeffersonlab_solidevgen_tag1_latest.sif
 * set prompt = '[#Container# %n@%m %c]$ '
