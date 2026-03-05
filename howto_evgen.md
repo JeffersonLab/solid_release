@@ -59,6 +59,12 @@ jlab ifarm has been upgraded to Almalinux9 as of 2025
   * make
 
 # compile and run generators in container on any machine
---------------------
- if you need to compile and run those generators on a machine with singularity/apptainer but without access to jlab network or cvmfs, you can still use the existing container by downloading it at http://webhome.phy.duke.edu/~zz81/simg/jeffersonlab_solidevgen_tag1_latest.sif
+
+ you can run compile or run those generators on any machine with singularity/apptainer
+
+ If it has access to jlab network, you may use it like ifarm
+
+ If you have cvmfs or you can mount it at /cvmfs using instruction here https://halldweb.jlab.org/wiki/index.php/HOWTO_use_prebuilt_GlueX_software_from_any_linux_user_account_using_cvmfsexec, you just need to "setenv location /cvmfs/oasis.opensciencegrid.org/jlab/halla/solid/soft/"
+ 
+ The final solution is you download the container at http://webhome.phy.duke.edu/~zz81/simg/jeffersonlab_solidevgen_tag1_latest.sif
 
