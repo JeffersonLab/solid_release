@@ -28,7 +28,7 @@ here is a quick way to **run official solid_gemc installation on ifarm**
    ctrl-d (to exit container)
 ```
 
-To run your simulaton with modified geometry and without changing hit processing, here is how to **run official solid_gemc binary with your installation on ifarm**
+To run your simulaton with modified geometry and without changing hit processing, here is how to **run official solid_gemc binary with your geomtry on ifarm**
 ```
  (singularity will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
  ssh -XY ifarm
@@ -50,13 +50,19 @@ To run your simulaton with modified geometry and without changing hit processing
 ```
 
 To run your simulaton with modified geometry and changing hit processing, here is how to **run your solid_gemc binary with your installation on ifarm and standalone machine**
-```  
-  (singularity will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
-ssh -XY ifarm
-cd your_work_dir  (which will be shared dir between host and container)
-(do this on ifarm) singularity shell -s /bin/tcsh -B ${PWD}:/mywork -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
-(do this on any other machine with apptainer) wget http://webhome.phy.duke.edu/~zz81/simg/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif 
-(do this on any other machine with apptainer) singularity shell -s /bin/tcsh -B ${PWD}:/mywork jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
+```
+(singularity will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
+(at ifarm)
+ ssh -XY ifarm
+ cd your_work_dir  (which will be shared dir between host and container)
+ singularity shell -s /bin/tcsh -B ${PWD}:/mywork -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
+(at your standalone machine with apptainer installed)
+ cd your_work_dir  (which will be shared dir between host and container)
+ (if you have cvmfs or you can mount it at /cvmfs using instruction here https://halldweb.jlab.org/wiki/index.php/HOWTO_use_prebuilt_GlueX_software_from_any_linux_user_account_using_cvmfsexec)
+ singularity shell -s /bin/tcsh -B ${PWD}:/mywork /cvmfs/oasis.opensciencegrid.org/jlab/halla/solid/soft/container/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
+ (if you can't have cvmfs)
+ wget http://webhome.phy.duke.edu/~zz81/simg/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif 
+ singularity shell -s /bin/tcsh -B ${PWD}:/mywork jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
   (now you are in container, run following commands inside)
   echo $SHELL      (check if you using tcsh, if not, run tcsh)
   set prompt = '[#Container# %n@%m %c]$ ' (change shell promt to better tell where you are)
