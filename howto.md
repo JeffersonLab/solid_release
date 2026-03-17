@@ -28,7 +28,7 @@ here is a quick way to **run official solid_gemc installation on ifarm**
    ctrl-d (to exit container)
 ```
 
-To run your simulaton with modified geometry and without changing hit processing, here is how to **run official solid_gemc binary with your geomtry on ifarm**
+To run your simulaton with modified geometry and without changing hit processing, here is how to **run official solid_gemc binary with your geometry on ifarm**
 ```
  (singularity will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
  ssh -XY ifarm
@@ -49,16 +49,15 @@ To run your simulaton with modified geometry and without changing hit processing
    ctrl-d (to exit container)
 ```
 
-To run your simulaton with modified geometry and changing hit processing, here is how to **run your solid_gemc binary with your installation on ifarm and standalone machine**
+To run your simulaton with modified geometry and changing hit processing, here is how to **run your solid_gemc binary with your installation on ifarm or a standalone machine**
 ```
 (singularity will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
-(at ifarm)
- ssh -XY ifarm
+(at ifarm or )
  cd your_work_dir  (which will be shared dir between host and container)
  singularity shell -s /bin/tcsh -B ${PWD}:/mywork -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
-(at your standalone machine with apptainer installed)
+(at a standalone machine with apptainer installed)
  cd your_work_dir  (which will be shared dir between host and container)
- (if you have cvmfs or you can mount it at /cvmfs using instruction here https://halldweb.jlab.org/wiki/index.php/HOWTO_use_prebuilt_GlueX_software_from_any_linux_user_account_using_cvmfsexec)
+ (if you have cvmfs or you can mount it at /cvmfs using osg packages (https://osg-htc.org/docs/worker-node/install-cvmfs/) or cvmfsexec git (https://halldweb.jlab.org/wiki/index.php/HOWTO_use_prebuilt_GlueX_software_from_any_linux_user_account_using_cvmfsexec))
  singularity shell -s /bin/tcsh -B ${PWD}:/mywork /cvmfs/oasis.opensciencegrid.org/jlab/halla/solid/soft/container/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
  (if you can't have cvmfs)
  wget http://webhome.phy.duke.edu/~zz81/simg/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif 
@@ -75,17 +74,25 @@ To run your simulaton with modified geometry and changing hit processing, here i
   scons OPT=1 LIBRARY=shared -j4
   setenv LD_LIBRARY_PATH ${GEMC}:${LD_LIBRARY_PATH}
   cd $SoLID_GEMC/source/${GEMC_VERSION}
-  (make change to code if needed)
+  (make change to hit process codes if needed)
   scons OPT=1 -j4
   setenv PATH ${SoLID_GEMC}/source/${GEMC_VERSION}:${GEMC}:${PATH}
-  (do this on any other machine) cd  $SoLID_GEMC/field
-  (do this on any other machine) wget https://solid.jlab.org/files/field/solenoid_v4.dat
   cd $SoLID_GEMC/script
-  (on any other machine, modify gcard files to change FIELD_DIR to /mywork/solid_gemc/field)
   (running solid_gemc in graphic mode as follows)
   solid_gemc solid_SIDIS_He3_moved_full.gcard
   solid_gemc solid_PVDIS_LD2_moved_full.gcard
   ctrl-d (to exit container)
+```
+
+Optional steps to use latest 3D field map
+```
+By default, SoLID use small 2D field map to speed up code, to use large 3D field map for study, do the following
+  (at ifarm)
+  modify gcard to /mywork/solid_gemc/field
+  cd  $SoLID_GEMC/field
+  (do this on any other machine) wget https://solid.jlab.org/files/field/solenoid_v4.dat
+  (on any other machine, modify gcard files to change FIELD_DIR to /mywork/solid_gemc/field)
+
 ```
 
 # run solid_gemc with batch mode and farm jobs
