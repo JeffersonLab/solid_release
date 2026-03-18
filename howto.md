@@ -131,8 +131,8 @@ on jlab computers, apptainer container images are under /group/solid/apps and th
 * outdated
   * jeffersonlab_jlabce_tag2.5_digest:sha256:431fa1b9d51d6225d05d179ba81dbf8ff77c222770966b1a9bfc2960f4dcd413_20211215_s3.8.3.sif (jlab_version 2.5 with gemc 2.9, but need ~/.jlab_software to work)
   * jeffersonlab_jlabce_tagdevel_digestsha256:01eac4333bdd2077233076363983d1898775c6c61e8f5c5b0b9f324c75c4da3c_20200409_s3.5.3.sif (jlab_version devel with gemc commit2fef2c2)
-  * jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s3.2.1.sif (old way in 2018 to run olid_gemc release v1.0.0 inside of container [jeffersonlab/solid:1.0.0](https://hub.docker.com/layers/jeffersonlab/solid/tags/1.0.0)
-which is based on container [jeffersonlab/jlabce:1.3m](https://hub.docker.com/layers/jeffersonlab/jlabce/tags/1.3m) including jlab_version 1.3m with gemc 2.3m)
+  * jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s3.2.1.sif (old way in 2018 to run olid_gemc release v1.0.0 inside of container [jeffersonlab/solid:1.0.0](https://hub.docker.com/layers/jeffersonlab/solid/1.0.0)
+which is based on container [jeffersonlab/jlabce:1.3m](https://hub.docker.com/layers/jeffersonlab/jlabce/1.3m) including jlab_version 1.3m with gemc 2.3m)
   * jeffersonlab_solid_tag1.devel_s3.2.1.sif (like solid_tag1.0.0, but provide base package only and test other packages outside of contianer)
   * jeffersonlab_solid_tag2.devel_s3.2.1.sif (more test with base package only)
 
@@ -147,4 +147,4 @@ They are created by pulling from docker container on jlab ifarm with the followi
 * setenv apptainer_CACHEDIR /scratch/$USER
 * setenv apptainer_TMPDIR /scratch/$USER
 * apptainer pull docker://jeffersonlab/[name]:[tag]
-* apptainer pull docker://jeffersonlab/jlabce:2.5 (for exmaple, https://hub.docker.com/layers/jeffersonlab/jlabce/tags/2.5)
+* apptainer pull docker://jeffersonlab/jlabce:2.5 (for exmaple, https://hub.docker.com/layers/jeffersonlab/jlabce/2.5)
