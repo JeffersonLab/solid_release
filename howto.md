@@ -62,8 +62,8 @@ To run your simulaton with modified geometry and changing hit processing, here i
  wget http://webhome.phy.duke.edu/~zz81/simg/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif 
  apptainer shell -s /bin/tcsh -B ${PWD}:/mywork jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
   (now you are in container, run following commands inside)
-  echo $SHELL      (check if you using tcsh, if not, run tcsh)
   set prompt = '[#Container# %n@%m %c]$ ' (change shell promt to better tell where you are)
+  echo $SHELL      (check if you using tcsh, if not, you may need run tcsh)
   cd /mywork
   (then you can compile and solid_gemc)
   git clone https://github.com/JeffersonLab/solid_gemc   (or just git pull to update it)
@@ -125,17 +125,17 @@ The native graphic mode is inside container, you can use vnc to access as follow
 # container list
 --------------------
 
-on jlab machines, apptainer container images are under /group/solid/apps/ and the list are:
+on jlab computers, apptainer container images are under /group/solid/apps and they can be downloaded by "scp your_jlab_username@ftp.jlab.org:/group/solid/apps/[apptainer_container_filename] ./". The list includes:
 * latest
   * jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif (jlab_version 2.5 with gemc 2.9)
 * outdated
   * jeffersonlab_jlabce_tag2.5_digest:sha256:431fa1b9d51d6225d05d179ba81dbf8ff77c222770966b1a9bfc2960f4dcd413_20211215_s3.8.3.sif (jlab_version 2.5 with gemc 2.9, but need ~/.jlab_software to work)
   * jeffersonlab_jlabce_tagdevel_digestsha256:01eac4333bdd2077233076363983d1898775c6c61e8f5c5b0b9f324c75c4da3c_20200409_s3.5.3.sif (jlab_version devel with gemc commit2fef2c2)
-  * jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s3.2.1.sif (old way in 2018 to run olid_gemc release v1.0.0 inside of container [jeffersonlab/solid:1.0.0](https://hub.docker.com/r/jeffersonlab/solid/tags/1.0.0)
-which is based on container [jeffersonlab/jlabce:1.3m](https://hub.docker.com/r/jeffersonlab/jlabce/tags/1.3m) including jlab_version 1.3m with gemc 2.3m)
+  * jeffersonlab_solid_tag1.0.0_digestsha256:873524668b3b360392437188cf26f375cafc2e03a9bde6a58469a7dad8cc373a_20181204_s3.2.1.sif (old way in 2018 to run olid_gemc release v1.0.0 inside of container [jeffersonlab/solid:1.0.0](https://hub.docker.com/layers/jeffersonlab/solid/tags/1.0.0)
+which is based on container [jeffersonlab/jlabce:1.3m](https://hub.docker.com/layers/jeffersonlab/jlabce/tags/1.3m) including jlab_version 1.3m with gemc 2.3m)
   * jeffersonlab_solid_tag1.devel_s3.2.1.sif (like solid_tag1.0.0, but provide base package only and test other packages outside of contianer)
   * jeffersonlab_solid_tag2.devel_s3.2.1.sif (more test with base package only)
-They can be downloaded by "scp your_jlab_username@ftp.jlab.org:/group/solid/apps/[apptainer_container_filename] ./"
+
 
 apptainer container naming convention:
 * for production container which won't change once released: "organization_repository_tag_digest_uploadtime_apptainerversion.imageformat"
@@ -147,4 +147,4 @@ They are created by pulling from docker container on jlab ifarm with the followi
 * setenv apptainer_CACHEDIR /scratch/$USER
 * setenv apptainer_TMPDIR /scratch/$USER
 * apptainer pull docker://jeffersonlab/[name]:[tag]
-* apptainer pull docker://jeffersonlab/jlabce:2.5 (for exmaple)
+* apptainer pull docker://jeffersonlab/jlabce:2.5 (for exmaple, https://hub.docker.com/layers/jeffersonlab/jlabce/tags/2.5)
