@@ -1,10 +1,13 @@
 # Introduction
 --------------------
-we run [solid_gemc](https://github.com/JeffersonLab/solid_gemc) using container and singularity/apptainer. Currently we install solid_gemc outside the container  [jeffersonlab/jlabce](https://hub.docker.com/r/jeffersonlab/jlabce/tags/) which has gemc and geant4 inside
+we run [solid_gemc](https://github.com/JeffersonLab/solid_gemc) using apptainer (formerly singularity) container. Currently we install solid_gemc outside the container  [jeffersonlab/jlabce](https://hub.docker.com/r/jeffersonlab/jlabce/tags/) which has gemc and geant4 inside
 
-Because we running on the code in container, it doesn't really matter which machine to run it. but practically it still depends on existing files on disks. So henceforth, I **refer "ifarm" to jlab ifarm machines and any machine with access to /group/solid and refer "standalone machine" to any machine without access to /group/solid**
+Because we running on the code in container, it doesn't really matter which machine to run it. but practically it still depends on existing files on disks. So henceforth, I **use "ifarm" to refer to jlab ifarm computers and any computer with access to /group/solid and use "standalone computer" to refer to any computer without the access**
 
-The best way to run it is on jlab ifarm. you can run it in batch mode to produce files and submit farm jobs or with graphic mode. (The best way to run graphoc is through vnc, refer to  https://hallaweb.jlab.org/wiki/index.php/Ifarm_graphic_mode)
+The best way to run it is on jlab ifarm. 
+you can run it in batch mode to produce output files with farm jobs or in graphic mode. 
+If you are inside jlab network, you can run it on ifarm in graphic mode directly after "ssh -XY ifarm". 
+Otherwise, the best way is to enter jlab network through [vnc](https://hallaweb.jlab.org/wiki/index.php/Ifarm_graphic_mode), and then run it on ifarm.
 
 # run solid_gemc with graphic mode 
 --------------------
@@ -12,10 +15,10 @@ According to your need, you can run it to look at existing simulation or modifiy
 
 here is a quick way to **run official solid_gemc installation on ifarm**
 ```
- (singularity will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
+  (apptainer will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
  ssh -XY ifarm
  cd your_work_dir  (which will be shared dir between host and container)
- singularity shell -s /bin/tcsh -B ${PWD}:/mywork -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
+ apptainer shell -s /bin/tcsh -B ${PWD}:/mywork -B /group,/u,/w,/cache,/volatile,/lustre /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
  (now you are in container, run following commands inside)
    set prompt = '[#Container# %n@%m %c]$ '
    setenv SoLID_GEMC /group/solid/solid_github/JeffersonLab/solid_gemc
@@ -30,10 +33,10 @@ here is a quick way to **run official solid_gemc installation on ifarm**
 
 To run your simulaton with modified geometry and without changing hit processing, here is how to **run official solid_gemc binary with your geometry on ifarm**
 ```
- (singularity will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
+ (apptainer will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
  ssh -XY ifarm
  cd your_work_dir  (which will be shared dir between host and container)
- singularity shell -s /bin/tcsh -B ${PWD}:/mywork -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
+ apptainer shell -s /bin/tcsh -B ${PWD}:/mywork -B /group,/u,/w,/cache,/volatile,/lustre /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
  (now you are in container, run following commands inside)
    set prompt = '[#Container# %n@%m %c]$ '
    setenv SoLID_GEMC /group/solid/solid_github/JeffersonLab/solid_gemc
@@ -49,19 +52,15 @@ To run your simulaton with modified geometry and without changing hit processing
    ctrl-d (to exit container)
 ```
 
-To run your simulaton with modified geometry and changing hit processing, here is how to **run your solid_gemc binary with your installation on ifarm or a standalone machine**
+To run your simulaton with modified geometry and changing hit processing, here is how to **run your solid_gemc binary with your installation on ifarm or a standalone computer with apptainer**
 ```
-(singularity will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
-(at ifarm or )
+(apptainer will load your shell env,so clean them up temporally to avoid conflict before loading container. For example, "mv .cshrc cshrc", "mv .login login", "mv .bashrc basrc")
  cd your_work_dir  (which will be shared dir between host and container)
- singularity shell -s /bin/tcsh -B ${PWD}:/mywork -B /group:/group -B /u:/u -B /w/work:/work -B /w:/w -B /cache:/cache -B /volatile:/volatile -B /lustre:/lustre /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
-(at a standalone machine with apptainer installed)
- cd your_work_dir  (which will be shared dir between host and container)
- (if you have cvmfs or you can mount it at /cvmfs using osg packages (https://osg-htc.org/docs/worker-node/install-cvmfs/) or cvmfsexec git (https://halldweb.jlab.org/wiki/index.php/HOWTO_use_prebuilt_GlueX_software_from_any_linux_user_account_using_cvmfsexec))
- singularity shell -s /bin/tcsh -B ${PWD}:/mywork /cvmfs/oasis.opensciencegrid.org/jlab/halla/solid/soft/container/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
- (if you can't have cvmfs)
+ (at ifarm or a standalone computer with /cvmfs using osg packages (https://osg-htc.org/docs/worker-node/install-cvmfs/) or cvmfsexec git (https://halldweb.jlab.org/wiki/index.php/HOWTO_use_prebuilt_GlueX_software_from_any_linux_user_account_using_cvmfsexec))
+ apptainer shell -s /bin/tcsh -B ${PWD}:/mywork /cvmfs/oasis.opensciencegrid.org/jlab/halla/solid/soft/container/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
+ (at a standalone computer without cvmfs)
  wget http://webhome.phy.duke.edu/~zz81/simg/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif 
- singularity shell -s /bin/tcsh -B ${PWD}:/mywork jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
+ apptainer shell -s /bin/tcsh -B ${PWD}:/mywork jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif
   (now you are in container, run following commands inside)
   echo $SHELL      (check if you using tcsh, if not, run tcsh)
   set prompt = '[#Container# %n@%m %c]$ ' (change shell promt to better tell where you are)
@@ -86,13 +85,19 @@ To run your simulaton with modified geometry and changing hit processing, here i
 
 Optional steps to use latest 3D field map
 ```
-By default, SoLID use small 2D field map to speed up code, to use large 3D field map for study, do the following
+By default, SoLID use a small 2D field map to speed up program loading at interactive mode. To use a large 3D field map for real studies, do the following
   (at ifarm)
-  modify gcard to /mywork/solid_gemc/field
+  modify the gcard as follows
+  <option name="FIELD_DIR" value="/group/solid/www/solid/html/files/field"/>
+  <option name="HALL_FIELD" value="solenoid_v4"/>
+  <option name="FIELD_PROPERTIES" value="solenoid_v4, 1*mm, G4ClassicalRK4,linear"/>
+  (at a standalone machine)
   cd  $SoLID_GEMC/field
-  (do this on any other machine) wget https://solid.jlab.org/files/field/solenoid_v4.dat
-  (on any other machine, modify gcard files to change FIELD_DIR to /mywork/solid_gemc/field)
-
+  wget https://solid.jlab.org/files/field/solenoid_v4.dat
+  modify the gcard as follows
+  <option name="FIELD_DIR" value="../field"/>
+  <option name="HALL_FIELD" value="solenoid_v4"/>
+  <option name="FIELD_PROPERTIES" value="solenoid_v4, 1*mm, G4ClassicalRK4,linear"/>
 ```
 
 # run solid_gemc with batch mode and farm jobs
@@ -102,23 +107,25 @@ see examples at https://github.com/JeffersonLab/solid_gemc/tree/master/script/fa
 # more information about using container 
 --------------------
 
-You need singularity (preferred) or docker to run the container. on your local machine, you need to install it 
-* on local centos/rhel/scientific linux, prepare singularity by "yum install apptainer" (old system "yum install singularity"). on Ubuntu, use apt. If your linux machine is a desktop at jlab, you can self-mount or ask computer center to help you to mount /group/solid/, then you can just use it like ifarm
-* on windows or Mac, try apptainer first https://apptainer.org/docs/admin/main/installation.html. If that somehow doesn't work, try docker https://docs.docker.com/desktop/install/mac-install/. The last way is to use singularity/docker in a virtual machine.
+You need apptainer (better than docker) to run the container. on your computer, you need to install it 
+* on local centos/rhel/scientific linux, prepare apptainer by "sudo yum install apptainer". on Ubuntu, use apt.
+* on windows or Mac, install it by https://apptainer.org/docs/admin/main/installation.html and the last way is to use apptainer in a linux virtual machine
 * refer to https://hallaweb.jlab.org/wiki/index.php/Note_about_container
 
+If your linux machine is a desktop at jlab, you can ask computer center to help you mount /group/solid/ or /cvmfs, or you can use sshfs to mount them from jlabl1, then you can just use it like ifarm
+
 The native graphic mode is inside container, you can use vnc to access as follows
-  * singularity run /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif &   (load for graphic mode in background)
+  * apptainer run /group/solid/apps/jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif &   (load for graphic mode in background)
   * vncviewer localhost:5901  (access for graphic mode, use the right port as shown in terminal)
   * run code inside container in vncviewer
   * close vncviewer
-  * fg          (bring singularity to front in the host)
-  * control-c   (exit singularity in the host)
+  * fg          (bring apptainer to front in the host)
+  * control-c   (exit apptainer in the host)
 
 # container list
 --------------------
 
-on jlab machines, singularity container images are under /group/solid/apps/ and the list are:
+on jlab machines, apptainer container images are under /group/solid/apps/ and the list are:
 * latest
   * jeffersonlab_jlabce_tag2.5_digest:sha256:9b9a9ec8c793035d5bfe6651150b54ac298f5ad17dca490a8039c530d0302008_20220413_s3.9.5.sif (jlab_version 2.5 with gemc 2.9)
 * outdated
@@ -128,16 +135,16 @@ on jlab machines, singularity container images are under /group/solid/apps/ and 
 which is based on container [jeffersonlab/jlabce:1.3m](https://hub.docker.com/r/jeffersonlab/jlabce/tags/1.3m) including jlab_version 1.3m with gemc 2.3m)
   * jeffersonlab_solid_tag1.devel_s3.2.1.sif (like solid_tag1.0.0, but provide base package only and test other packages outside of contianer)
   * jeffersonlab_solid_tag2.devel_s3.2.1.sif (more test with base package only)
-They can be downloaded by "scp your_jlab_username@ftp.jlab.org:/group/solid/apps/[singularity_container_filename] ./"
+They can be downloaded by "scp your_jlab_username@ftp.jlab.org:/group/solid/apps/[apptainer_container_filename] ./"
 
-singularity container naming convention:
-* for production container which won't change once released: "organization_repository_tag_digest_uploadtime_singularityversion.imageformat"
+apptainer container naming convention:
+* for production container which won't change once released: "organization_repository_tag_digest_uploadtime_apptainerversion.imageformat"
 * for devel container which would update from time to time: 
-"orgnization_repository_tag_singularityversion.imageformat"
+"orgnization_repository_tag_apptainerversion.imageformat"
 
 They are created by pulling from docker container on jlab ifarm with the following command
-* module load singularity/3.9.5
 * cd /group/solid/apps/
-* setenv SINGULARITY_CACHEDIR /scratch/$USER
-* setenv SINGULARITY_TMPDIR /scratch/$USER
-* singularity pull docker://jeffersonlab/[name]:[tag]
+* setenv apptainer_CACHEDIR /scratch/$USER
+* setenv apptainer_TMPDIR /scratch/$USER
+* apptainer pull docker://jeffersonlab/[name]:[tag]
+* apptainer pull docker://jeffersonlab/jlabce:2.5 (for exmaple)
